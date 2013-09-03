@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<project
+    name="GenomeTools:bam2tdf"
+    basedir="."
+    default="dist" >
+
+    <property
+        name="version"
+        value="2100" />
+
+    <property
+        name="src"
+        value="src/" />
+
+    <property
+        name="build"
+        value="build" />
+
+    <property
+        name="project"
+        value="bam2tdf" />
+
+    <property
+        name="dist"
+        value="${project}-${version}" />
+
+    <property
+        name="jar"
+        value="${project}-${version}.jar" />
+
+    <target name="dist" >
+
+        <delete
+            dir="${build}"
+            failonerror="false" />
+
+        <delete
+            dir="${dist}"
+            failonerror="false" />
+
+        <mkdir dir="${build}" />
+
+        <mkdir dir="${dist}" />
+
+        <mkdir dir="sourcebuild" />
+
+        <copy todir="sourcebuild" >
+
+            <fileset dir="${src}" >
+
+                <include name="**/*.java" />
+            </fileset>
+        </copy>
+
+        <copy todir="${dist}/" >
+
+            <fileset dir="lib/" >
+
+                <include name="*.jar" />
+            </fileset>
+        </copy>
+
+        <zip
+            basedir="sourcebuild"
+            destfile="${dist}/${project}-${version}-src.zip" />
+
+        <delete
+            dir="sourcebuild"
+            failonerror="false" />
+
+        <javac
+            debug="true"
+            debuglevel="lines,vars,source"
+            destdir="${build}"
+            excludes="junit/*.java"
+            source="1.6"
+            srcdir="${src}"
+            target="1.6" >
+
+            <classpath>
+
+                <fileset dir="lib/" >
+
+                    <include name="*.jar" />
+                </fileset>
+            </classpath>
+        </javac>
+
+        <jar
+            basedir="${build}"
+            destfile="${dist}/${jar}"
+            manifest="dev/MANIFEST.MF" >
+        </jar>
+
+       
+
+        <zip
+            basedir="${dist}"
+            destfile="${dist}.zip" />
+
+        <delete
+            failonerror="false"
+            file="${dist}.tar" />
+
+        <delete
+            dir="${dist}"
+            failonerror="false" />
+
+        <delete
+            dir="${build}"
+            failonerror="false" />
+    </target>
+
+</project>

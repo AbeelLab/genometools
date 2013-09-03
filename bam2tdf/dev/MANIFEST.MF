@@ -1,0 +1,2 @@
+Main-Class: org.broad.tools.ConvertBAM2TDF
+Class-path: sam-1.67.jar jannot-2080.jar
