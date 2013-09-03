@@ -63,8 +63,8 @@ public class ConvertBAM2TDF {
 	}
 
 	private static void printUsage() {
-		System.out.println("Usage: java -jar tdformat-<version>.jar <bam file 1> [<bam file 2> ...]");
-		System.out.println("\ttdformat needs a BAI file for each BAM file.");
+		System.out.println("Usage: java -jar bam2tdf.jar <bam file 1> [<bam file 2> ...]");
+		System.out.println("\tbam2tdf needs a BAI file for each BAM file.");
 
 	}
 
