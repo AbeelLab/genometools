@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<project
+    name="GenomeTools::ReduceVCF"
+    basedir="."
+    default="dist" >
+
+    <property
+        name="version"
+        value="xyz" />
+
+    <property
+        name="build"
+        value="build/" />
+
+    <property
+        name="src"
+        value="src/" />
+
+    <property
+        name="project"
+        value="reducevcf" />
+
+    <property
+        name="dist"
+        value="${project}-${version}" />
+
+    <property
+        name="jar"
+        value="${project}.jar" />
+
+    <target name="dist" >
+
+        <taskdef resource="scala/tools/ant/antlib.xml" >
+
+            <classpath>
+
+                <fileset dir="../lib" >
+
+                    <include name="**/*.jar" />
+                </fileset>
+
+                <fileset dir="../lib_compile" >
+
+                    <include name="**/*.jar" />
+                </fileset>
+                <!-- <pathelement location="../lib/scala-compiler.jar" /> -->
+
+
+                <!-- <pathelement location="${scala-library.jar}" /> -->
+            </classpath>
+        </taskdef>
+
+        <!-- <delete failonerror="false" dir="${build}" /> -->
+        <!-- <delete failonerror="false" dir="${dist}" /> -->
+
+        <mkdir dir="${build}" />
+
+        <mkdir dir="${dist}" />
+
+        <propertyfile file="${build}/tool.properties" >
+
+            <entry
+                key="program"
+                value="${project}" />
+
+            <entry
+                key="version"
+                value="${version}" />
+        </propertyfile>
+
+        <scalac
+            destdir="${build}"
+            excludes="junit/**"
+            srcdir="${src}" >
+
+            <classpath>
+
+                <fileset dir="../lib" >
+
+                    <include name="**/*.jar" />
+                </fileset>
+            </classpath>
+        </scalac>
+
+        <javac
+            destdir="${build}"
+            excludes="junit/**"
+            srcdir="${src}" >
+
+            <classpath>
+
+                <fileset dir="../lib" >
+
+                    <include name="**/*.jar" />
+                </fileset>
+            </classpath>
+        </javac>
+
+        <copy todir="${dist}" >
+
+            <fileset dir="../lib" >
+
+                <include name="**/*.jar" />
+            </fileset>
+        </copy>
+
+        <jar
+            basedir="${build}"
+            destfile="${dist}/${jar}"
+            manifest="manifest.mf" >
+        </jar>
+
+        <zip
+            basedir="."
+            destfile="${dist}.zip"
+            includes="${dist}/**/*" />
+
+        <delete
+            dir="${dist}"
+            failonerror="false" />
+
+        <delete
+            dir="${build}"
+            failonerror="false" />
+    </target>
+
+</project>
