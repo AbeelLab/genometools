@@ -1,6 +1,8 @@
 *.class
 *.log
 
+.classpath
+
 # sbt specific
 dist/*
 target/
