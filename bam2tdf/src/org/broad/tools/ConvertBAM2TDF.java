@@ -47,7 +47,8 @@ public class ConvertBAM2TDF {
 		}
 
 		for (String s : args) {
-			if (!new File(s + ".bai").exists()) {
+			if (!new File(s + ".bai").exists() && !new File(s.replaceAll("\\.bam$", ".bai")).exists()) {
+				
 				System.err.println("WARNING: Could not find BAI file for " + s);
 				System.err.println("\ttdformat needs a BAI file for each BAM file.");
 			} else {
