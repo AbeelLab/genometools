@@ -42,17 +42,7 @@
 
         <mkdir dir="${dist}" />
 
-        <mkdir dir="sourcebuild" />
-
-        <copy todir="sourcebuild" >
-
-            <fileset dir="${src}" >
-
-                <include name="**/*.java" />
-            </fileset>
-        </copy>
-
-        <copy todir="${dist}/" >
+      	<copy todir="${dist}/" >
 
             <fileset dir="lib/" >
 
