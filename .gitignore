@@ -4,6 +4,8 @@
 .classpath
 .cache
 
+bin/
+
 # sbt specific
 dist/*
 target/
