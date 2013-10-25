@@ -5,6 +5,24 @@
     default="dist" >
 
     <property
+        name="project"
+        value="bam2tdf" />
+
+    <property
+        name="manifest.mainClass"
+        value="org.broad.tools.ConvertBAM2TDF" />
+
+    <fileset
+        id="jarfiles"
+        dir="../lib/" >
+
+        <include name="sam-*.jar" />
+        <include name="jannot-*.jar" />
+    </fileset>
+
+    <!--  Code below should not be changed -->
+    
+    <property
         name="version"
         value="development" />
 
@@ -17,10 +35,6 @@
         value="build" />
 
     <property
-        name="project"
-        value="bam2tdf" />
-
-    <property
         name="dist"
         value="${project}-${version}" />
 
@@ -28,6 +42,33 @@
         name="jar"
         value="${project}.jar" />
 
+    <path id="build.classpath" >
+
+        <fileset refid="jarfiles" />
+    </path>
+
+    <echo message="${toString:build.classpath}" />
+
+    <pathconvert
+        pathsep=" "
+        property="manifest.classpath" >
+
+        <path refid="build.classpath" />
+
+        <mapper>
+
+            <chainedmapper>
+
+                <flattenmapper />
+
+                <globmapper
+                    from="*.jar"
+                    to="*.jar" />
+            </chainedmapper>
+        </mapper>
+    </pathconvert>
+
+    <echo message="${manifest.classpath}" />
     <target name="dist" >
 
         <delete
@@ -42,15 +83,10 @@
 
         <mkdir dir="${dist}" />
 
-      	<copy todir="${dist}/" >
+        <copy todir="${dist}/" >
 
-            <fileset dir="lib/" >
-
-                <include name="*.jar" />
-            </fileset>
+            <fileset refid="jarfiles" />
         </copy>
-
-        
 
         <javac
             debug="true"
@@ -61,30 +97,29 @@
             srcdir="${src}"
             target="1.6" >
 
-            <classpath>
-
-                <fileset dir="lib/" >
-
-                    <include name="*.jar" />
-                </fileset>
+            <classpath path="${toString:build.classpath}" >
             </classpath>
         </javac>
 
         <jar
             basedir="${build}"
-            destfile="${dist}/${jar}"
-            manifest="dev/MANIFEST.MF" >
-        </jar>
+            destfile="${dist}/${jar}" >
 
-       
+            <manifest>
+
+                <attribute
+                    name="Main-Class"
+                    value="${manifest.mainClass}" />
+
+                <attribute
+                    name="Class-Path"
+                    value="${manifest.classpath}" />
+            </manifest>
+        </jar>
 
         <zip
             basedir="${dist}"
             destfile="${dist}.zip" />
-
-        <delete
-            failonerror="false"
-            file="${dist}.tar" />
 
         <delete
             dir="${dist}"
