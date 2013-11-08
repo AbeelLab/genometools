@@ -47,8 +47,10 @@ class VCFLine(val line: String) {
   lazy val altLength = alt.length()
 
   lazy val variation: Variation = {
-    if (ref.length() == alt.length()) {
-      if (alt.equals(".") || ref.equals(alt))
+    if(alt.equals(".")){
+      new Match
+    }else if (ref.length() == alt.length()) {
+      if (ref.equals(alt))
         new Match
       else {
         if (ref.length() == 1)
