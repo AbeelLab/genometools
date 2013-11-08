@@ -58,19 +58,6 @@ object ReduceVCF extends Tool {
     if (parser.parse(args)) {
       assume(config.inputfile!=null)
       assume(config.outputfile!=null)
-//      // do stuff
-//      if (config.inputfile == null) {
-//        println("No input file specified, aborting...")
-//        System.exit(-1)
-//      }
-//      if (config.outputfile == null) {
-//        println("No output prefix provided, aborting...")
-//        System.exit(-1)
-//      }
-      //      if(new File(config.outputfile).exists()&& new File(config.outputfile).isFile()){
-      //        println("Prefix needs to be a folder, aborting...")
-      //        System.exit(-1)
-      //      }
       processFile(config.inputfile, config.outputfile, config.keep)
 
     } else {
@@ -80,48 +67,16 @@ object ReduceVCF extends Tool {
     }
   }
 
-  //  def reduce(inFolder: String, outFolder: String) {
-  //
-  //    new File(outFolder).mkdirs()
-  //    val log = new PrintWriter(outFolder + "/vcfReduce.log")
-  //    log.println(generatorInfo)
-  //
-  //    val list = new File(inFolder).listFiles(new PatternFileFilter(".*annotated_snps.vcf"))
-  //    log.println("# File list")
-  //    log.println(list.map(s => "# " + s).mkString("\n"))
-  //
-  //    new File(outFolder).mkdirs()
-  //
-  //    for (file <- list) {
-  //      val outFile = new File(outFolder + "/" + file.getName())
-  //
-  //      if (outFile.exists() && outFile.length() > 0) {
-  //        log.println("## Output file already exits, skipping...")
-  //      } else {
-  //        processFile(file, outFile)
-  //      }
-  //    }
-  //
-  //    finish()
-  //    finish(log)
-  //
-  //  }
+
 
   def processFile(file: File, outFile: File, keep: Boolean) = {
 
-    //    log.println("##Processing: " + file)
-
-    //    outFolder.mkdirs()
-    //
-    //    val outFile = new File(outFolder + "/" + file.getName())
+   
     if (outFile.exists() && outFile.length() > 0) {
       log("File already exists, aborting...")
     } else {
       val pw = new PrintWriter(outFile)
-      //      val pwMini = new PrintWriter(outFile.toString().replaceAll("\\.vcf", ".mini.vcf"))
       val summary = new PrintWriter(outFile.toString() + ".log")
-      //      summary.println(generatorInfo)
-      //      summary.println("# ID\tsamePass\tsameFail\tdiffPass\tdiffFail\ttotalCount")
       val filterFM = new CountMap[String]
       val typeFM = new CountMap[String]
       var samePass = 0
@@ -129,11 +84,7 @@ object ReduceVCF extends Tool {
       var diffPass = 0
       var diffFail = 0
       var lineCount = 0
-      //    val ctr = new Array[Int](4411708)
-
-      //      val pointMap = scala.collection.mutable.Map.empty[String, Array[Int]]
-      //      val qualMap = scala.collection.mutable.Map.empty[String, Array[Int]]
-
+ 
       val passCM = new CountMap[String]();
       val failCM = new CountMap[String]();
 
@@ -146,19 +97,7 @@ object ReduceVCF extends Tool {
           lineCount += 1
           val vcfLine = new VCFLine(line)
 
-          //        if(!pointMap.contains(vcfLine.variation.strType))
-          //          pointMap += (vcfLine.variation.strType -> )
-
-          //          val arr = pointMap.getOrElseUpdate(vcfLine.variation.toString, new Array[Int](genomeSize))
-          //          arr(vcfLine.zeroPos) += 1
-
-          //          for (f <- vcfLine.filter.split(";")) {
-          //            val arrQual = qualMap.getOrElseUpdate(f, new Array[Int](genomeSize))
-          //            arrQual(vcfLine.zeroPos) += 1
-          //          }
-
-          //        pointMap() += 1
-          filterFM.count(vcfLine.filter)
+           filterFM.count(vcfLine.filter)
 
           typeFM.count(vcfLine.variation.strType)
 
