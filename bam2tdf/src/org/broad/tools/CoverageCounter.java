@@ -65,16 +65,18 @@ class CoverageCounter {
 	private int totalCount = 0;
 
 	private SAMSequenceDictionary genome;
+	private double mappingQuality=-1;
 
-	CoverageCounter(String alignmentFile, Preprocessor consumer, File wigFile, SAMSequenceDictionary genome2) {
+	CoverageCounter(String alignmentFile, Preprocessor consumer, File wigFile, SAMSequenceDictionary genome2,double mappingQuality) {
 		this.alignmentFile = alignmentFile;
 		this.consumer = consumer;
 		this.genome = genome2;
 		buffer = new float[4];
+		this.mappingQuality=mappingQuality;
 	}
 
 	private boolean passFilter(SAMRecord alignment) {
-		return !alignment.getReadUnmappedFlag() && !alignment.getDuplicateReadFlag();
+		return !alignment.getReadUnmappedFlag() && !alignment.getDuplicateReadFlag() && alignment.getMappingQuality()>mappingQuality;
 	}
 
 	void parse() throws IOException, URISyntaxException {

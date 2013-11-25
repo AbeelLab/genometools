@@ -601,11 +601,11 @@ class Preprocessor {
 		}
 	}
 
-	void count(String iFile, int maxZoomValue) throws IOException, URISyntaxException {
+	void count(String iFile, int maxZoomValue,double minMapping) throws IOException, URISyntaxException {
 		setNZoom(maxZoomValue);
 		setTrackParameters("SENSEAWARECOVERAGE", null, new String[] { "firstforward", "firstreverse", "secondforward", "secondreverse" });
 		this.setSkipZeroes(true);
-		CoverageCounter aParser = new CoverageCounter(iFile, this, null, genome);
+		CoverageCounter aParser = new CoverageCounter(iFile, this, null, genome,minMapping);
 		aParser.parse();
 	}
 

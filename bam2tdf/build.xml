@@ -18,9 +18,12 @@
 
         <include name="sam-*.jar" />
         <include name="jannot-*.jar" />
+        <include name="atk-*.jar" />
+        <include name="scala-library.jar" />
+        
     </fileset>
 
-    <!--  Code below should not be changed -->
+     <!--  Code below should not be changed -->
     
     <property
         name="version"
@@ -71,6 +74,22 @@
     <echo message="${manifest.classpath}" />
     <target name="dist" >
 
+        <!--  Define scala compiler task -->
+        <taskdef resource="scala/tools/ant/antlib.xml" >
+
+            <classpath>
+
+                <fileset refid="jarfiles" />
+                
+                <fileset dir="../lib_compile" >
+
+                    <include name="**/*.jar" />
+                </fileset>
+               
+            </classpath>
+        </taskdef>
+        
+        
         <delete
             dir="${build}"
             failonerror="false" />
@@ -88,6 +107,28 @@
             <fileset refid="jarfiles" />
         </copy>
 
+         <propertyfile file="${build}/tool.properties" >
+
+            <entry
+                key="program"
+                value="${project}" />
+
+            <entry
+                key="version"
+                value="${version}" />
+        </propertyfile>
+        
+        <scalac
+            destdir="${build}"
+            excludes="junit/**"
+            srcdir="${src}" >
+
+            <classpath path="${toString:build.classpath}" >
+	        
+            </classpath>
+        </scalac>
+         
+        
         <javac
             debug="true"
             debuglevel="lines,vars,source"
