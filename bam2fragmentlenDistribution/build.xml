@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<project
+    name="GenomeTools::Bam2FragmentlenDistribution"
+    basedir="."
+    default="dist" >
+
+    <property
+        name="project"
+        value="bam2fragmentlenDistribution" />
+
+    <property
+        name="manifest.mainClass"
+        value="abeel.genometools.Bam2FragmentlenDistribution" />
+
+    <fileset
+        id="jarfiles"
+        dir="../lib/" >
+
+        <include name="atk-*.jar" />
+        <include name="ajt-*.jar" />
+        <include name="sam-*.jar" />
+        <include name="jcommon-*.jar" />
+        <include name="jfreechart-*.jar" />
+        <include name="scala-library.jar" />
+        
+    </fileset>
+
+    <!--  Code below should not be changed -->
+    
+    <property
+        name="version"
+        value="development" />
+
+    <property
+        name="src"
+        value="src/" />
+
+    <property
+        name="build"
+        value="build" />
+
+    <property
+        name="dist"
+        value="${project}-${version}" />
+
+    <property
+        name="jar"
+        value="${project}.jar" />
+
+    <path id="build.classpath" >
+
+        <fileset refid="jarfiles" />
+    </path>
+
+    <echo message="${toString:build.classpath}" />
+
+    <pathconvert
+        pathsep=" "
+        property="manifest.classpath" >
+
+        <path refid="build.classpath" />
+
+        <mapper>
+
+            <chainedmapper>
+
+                <flattenmapper />
+
+                <globmapper
+                    from="*.jar"
+                    to="*.jar" />
+            </chainedmapper>
+        </mapper>
+    </pathconvert>
+
+    <echo message="${manifest.classpath}" />
+    <target name="dist" >
+
+        <!--  Define scala compiler task -->
+        <taskdef resource="scala/tools/ant/antlib.xml" >
+
+            <classpath>
+
+                <fileset refid="jarfiles" />
+                
+                <fileset dir="../lib_compile" >
+
+                    <include name="**/*.jar" />
+                </fileset>
+               
+            </classpath>
+        </taskdef>
+        
+        
+        <delete
+            dir="${build}"
+            failonerror="false" />
+
+        <delete
+            dir="${dist}"
+            failonerror="false" />
+
+        <mkdir dir="${build}" />
+
+        <mkdir dir="${dist}" />
+
+        <copy todir="${dist}/" >
+
+            <fileset refid="jarfiles" />
+        </copy>
+
+         <propertyfile file="${build}/tool.properties" >
+
+            <entry
+                key="program"
+                value="${project}" />
+
+            <entry
+                key="version"
+                value="${version}" />
+        </propertyfile>
+        
+        <scalac
+            destdir="${build}"
+            excludes="junit/**"
+            srcdir="${src}" >
+
+            <classpath path="${toString:build.classpath}" >
+	        
+            </classpath>
+        </scalac>
+         
+        
+        <javac
+            debug="true"
+            debuglevel="lines,vars,source"
+            destdir="${build}"
+            excludes="junit/*.java"
+            source="1.6"
+            srcdir="${src}"
+            target="1.6" >
+
+            <classpath path="${toString:build.classpath}" >
+            </classpath>
+        </javac>
+
+        <jar
+            basedir="${build}"
+            destfile="${dist}/${jar}" >
+
+            <manifest>
+
+                <attribute
+                    name="Main-Class"
+                    value="${manifest.mainClass}" />
+
+                <attribute
+                    name="Class-Path"
+                    value="${manifest.classpath}" />
+            </manifest>
+        </jar>
+
+        <zip
+            basedir="${dist}"
+            destfile="${dist}.zip" />
+
+        <delete
+            dir="${dist}"
+            failonerror="false" />
+
+        <delete
+            dir="${build}"
+            failonerror="false" />
+    </target>
+
+</project>
