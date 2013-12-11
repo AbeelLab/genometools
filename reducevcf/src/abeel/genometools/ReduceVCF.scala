@@ -3,11 +3,11 @@ package abeel.genometools
 import java.io.File
 import java.io.PrintWriter
 import java.util.Properties
-
 import scala.io.Source
-
 import atk.util.Tool
 import be.abeel.util.CountMap
+import atk.compbio.vcf.VCFLine
+import atk.compbio.vcf._
 
 /**
  * Program to whittle down VCF file to variation sites that pass all filters!

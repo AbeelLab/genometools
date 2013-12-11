@@ -1,5 +1,7 @@
 package abeel.genometools
 
+import atk.compbio.vcf.VCFLine
+
 /**
  * @author Thomas Abeel
  */
