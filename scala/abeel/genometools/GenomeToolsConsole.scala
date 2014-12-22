@@ -9,6 +9,7 @@ import abeel.genometools.inject.InjectColumns
 import abeel.genometools.reducevcf.ReduceVCF
 import abeel.genometools.vcfstats.VCFStatistics
 import atk.util.Tool
+import abeel.genometools.bamstats.Bamstats
 
 trait Main extends Tool {
   def main(args: Array[String]) {}
@@ -21,6 +22,7 @@ object GenomeToolsConsole {
 
     "bam2readnames" -> Bam2ReadNames,
     "bam2tdf" -> ConvertBAM2TDF,
+    "bamstats" ->Bamstats,
     "gbk2gff" -> GBK2GFF,
     "gff2gtf" -> GFF2GTF,
     "inject" -> InjectColumns,
