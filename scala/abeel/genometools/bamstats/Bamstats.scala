@@ -43,7 +43,7 @@ object Bamstats extends Main {
 
     val fm = new FrequencyMap
     val fmReads=new FrequencyMap
-    val filtered = sam.iterator().filter(f => f.getFirstOfPairFlag() && !f.getMateUnmappedFlag() && f.getReferenceIndex() == f.getMateReferenceIndex() && f.getMappingQuality() > 0)
+    val filtered = sam.iterator().filter(f => (!f.getReadPairedFlag()|| (f.getFirstOfPairFlag() && !f.getMateUnmappedFlag() && f.getReferenceIndex() == f.getMateReferenceIndex())) && f.getMappingQuality() > 0)
     while (filtered.hasNext) {
       val sr = filtered.next
       val s = sr.getAlignmentStart()
