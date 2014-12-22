@@ -1,22 +1,22 @@
 package abeel.genometools.gbk2gff;
 
-import java.io.FileOutputStream;
+import java.io.FileOutputStream
 import scala.collection.JavaConversions._
-import java.io.IOException;
-
-import net.sf.jannot.Entry;
-import net.sf.jannot.EntrySet;
-import net.sf.jannot.exception.ReadFailedException;
-import net.sf.jannot.parser.FastaParser;
-import net.sf.jannot.parser.GFF3Parser;
-import net.sf.jannot.parser.Parser;
+import java.io.IOException
+import net.sf.jannot.Entry
+import net.sf.jannot.EntrySet
+import net.sf.jannot.exception.ReadFailedException
+import net.sf.jannot.parser.FastaParser
+import net.sf.jannot.parser.GFF3Parser
+import net.sf.jannot.parser.Parser
 import net.sf.jannot.source.FileSource;
+import abeel.genometools.Main
 /**
  * 
  * @author tabeel
  *
  */
-object GBK2GFF {
+object GBK2GFF extends Main{
 
 	
 
@@ -25,7 +25,7 @@ object GBK2GFF {
 	 * @throws IOException
 	 * @throws ReadFailedException
 	 */
-	def main(args:Array[String]){
+	override def main(args:Array[String]){
 		if (args.length != 2) {
 			System.out.println("##----------------------------------------------");
 			System.out.println("## GBK2GFF.java");

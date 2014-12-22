@@ -6,13 +6,14 @@ import atk.util.Tool
 import java.io.PrintWriter
 import net.sf.samtools.SAMFileReader
 import scala.collection.JavaConversions._
+import abeel.genometools.Main
 
 
-object Bam2ReadNames extends Tool {
+object Bam2ReadNames extends Tool with Main {
 
   case class Config(val inputFile: File = null, val outputFile: File = null)
 
-  def main(args: Array[String]) {
+  override def main(args: Array[String]) {
 
     println("##----------------------------------------------")
     println("## Bam2ReadNames.scala")

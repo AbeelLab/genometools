@@ -7,13 +7,13 @@ import net.sf.samtools.SAMFileReader
 import scala.collection.JavaConversions._
 import be.abeel.util.FrequencyMap
 import be.abeel.util.FrequencyMapUtils
+import abeel.genometools.Main
 
-
-object Bam2FragmentlenDistribution extends Tool {
+object Bam2FragmentlenDistribution extends Tool with Main {
 
   case class Config(val inputFile: File = null, val outputFile: File = null)
 
-  def main(args: Array[String]) {
+  override def main(args: Array[String]) {
 
     println("##----------------------------------------------")
     println("## Bam2FragmentlenDistribution.scala")
@@ -52,23 +52,19 @@ object Bam2FragmentlenDistribution extends Tool {
 
   private def processFile(config: Config) {
 
-    
-
     val sam = new SAMFileReader(config.inputFile)
 
-   
-    val fm=new FrequencyMap
-    
-    val filtered = sam.iterator().filter(f => f.getFirstOfPairFlag() && !f.getMateUnmappedFlag() && f.getReferenceIndex()==f.getMateReferenceIndex() && f.getMappingQuality()>0)
-    while (filtered.hasNext){
-      val sr=filtered.next
-      val s=sr.getAlignmentStart()
-      val e=sr.getMateAlignmentStart()
-      val diff=math.abs(e-s)+sr.getReadLength()
+    val fm = new FrequencyMap
+
+    val filtered = sam.iterator().filter(f => f.getFirstOfPairFlag() && !f.getMateUnmappedFlag() && f.getReferenceIndex() == f.getMateReferenceIndex() && f.getMappingQuality() > 0)
+    while (filtered.hasNext) {
+      val sr = filtered.next
+      val s = sr.getAlignmentStart()
+      val e = sr.getMateAlignmentStart()
+      val diff = math.abs(e - s) + sr.getReadLength()
       fm.count(diff)
     }
-    FrequencyMapUtils.plot(fm, config.outputFile.toString(),false,0,2000)
-
+    FrequencyMapUtils.plot(fm, config.outputFile.toString(), false, 0, 2000)
 
     sam.close()
 

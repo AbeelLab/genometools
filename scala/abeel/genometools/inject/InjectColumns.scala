@@ -4,12 +4,13 @@ import java.util.Properties
 import java.io.File
 import atk.util.Tool
 import java.io.PrintWriter
+import abeel.genometools.Main
 
-object InjectColumns extends Tool{
+object InjectColumns extends Tool with Main{
 
   case class Config(val inputFile: File = null, val outputFile: File = null, files: List[File] = List())
 
-  def main(args: Array[String]) {
+  override def main(args: Array[String]) {
 
     println("##----------------------------------------------")
     println("## InjectColumns.scala")

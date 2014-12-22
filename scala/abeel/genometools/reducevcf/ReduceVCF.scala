@@ -8,12 +8,13 @@ import atk.util.Tool
 import be.abeel.util.CountMap
 import atk.compbio.vcf.VCFLine
 import atk.compbio.vcf._
+import abeel.genometools.Main
 
 /**
  * Program to whittle down VCF file to variation sites that pass all filters!
  *
  */
-object ReduceVCF extends Tool {
+object ReduceVCF extends Tool with Main {
 
   class Config {
     var inputfile: File = null
@@ -21,7 +22,7 @@ object ReduceVCF extends Tool {
     var keep: Boolean = false;
   }
 
-  def main(args: Array[String]) {
+  override def main(args: Array[String]) {
 
     println("##----------------------------------------------")
     println("## ReduceVCF.scala")

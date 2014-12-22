@@ -1,28 +1,28 @@
 package abeel.genometools.gff2gtf;
 
-import java.io.FileOutputStream;
+import java.io.FileOutputStream
 import scala.collection.JavaConversions._
-import java.io.IOException;
-
-import net.sf.jannot.Entry;
-import net.sf.jannot.EntrySet;
-import net.sf.jannot.exception.ReadFailedException;
-import net.sf.jannot.parser.GTFParser;
+import java.io.IOException
+import net.sf.jannot.Entry
+import net.sf.jannot.EntrySet
+import net.sf.jannot.exception.ReadFailedException
+import net.sf.jannot.parser.GTFParser
 import net.sf.jannot.source.FileSource;
+import abeel.genometools.Main
 
 /**
  * 
  * @author Thomas Abeel
  * 
  */
-object GFF2GTF {
+object GFF2GTF extends Main{
 
 	/**
 	 * @param args
 	 * @throws IOException
 	 * @throws ReadFailedException
 	 */
-	def  main(args:Array[String]){
+	override def  main(args:Array[String]){
 		if (args.length != 2) {
 			System.out.println("##----------------------------------------------");
 			System.out.println("## GFF2GTF.java");

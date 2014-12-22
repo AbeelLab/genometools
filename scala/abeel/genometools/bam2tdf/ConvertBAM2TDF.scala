@@ -19,17 +19,13 @@ package abeel.genometools.bam2tdf
 
 import java.io.File
 import java.util.Properties
-
-
 import org.broad.igv.WindowFunction
-
-
 import java.util.ArrayList
-
 import net.sf.samtools.SAMFileReader
 import net.sf.samtools.SAMFileReader.ValidationStringency
 import atk.util.Tool
 import scala.collection.JavaConversions._
+import abeel.genometools.Main
 
 /**
  * Program to create tdf files from bam files.
@@ -37,10 +33,10 @@ import scala.collection.JavaConversions._
  * @author Thomas Abeel
  *
  */
-object ConvertBAM2TDF extends Tool {
+object ConvertBAM2TDF extends Tool with Main{
   case class Config(val mappingQuality: Int = -1, files: Seq[File] = Seq())
 
-  def main(args: Array[String]) {
+  override def main(args: Array[String]) {
 
     println("##----------------------------------------------")
     println("## ConvertBAM2TDF.scala")
