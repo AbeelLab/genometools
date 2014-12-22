@@ -1,35 +1,40 @@
-package abeel.genometools.gff2gtf;
+package abeel.genometools.gbk2gff;
 
 import java.io.FileOutputStream;
+import scala.collection.JavaConversions._
 import java.io.IOException;
 
 import net.sf.jannot.Entry;
 import net.sf.jannot.EntrySet;
 import net.sf.jannot.exception.ReadFailedException;
-import net.sf.jannot.parser.GTFParser;
+import net.sf.jannot.parser.FastaParser;
+import net.sf.jannot.parser.GFF3Parser;
+import net.sf.jannot.parser.Parser;
 import net.sf.jannot.source.FileSource;
-
 /**
  * 
- * @author Thomas Abeel
- * 
+ * @author tabeel
+ *
  */
-public class GFF2GTF {
+object GBK2GFF {
+
+	
 
 	/**
 	 * @param args
 	 * @throws IOException
 	 * @throws ReadFailedException
 	 */
-	public static void main(String[] args) throws ReadFailedException, IOException {
+	def main(args:Array[String]){
 		if (args.length != 2) {
 			System.out.println("##----------------------------------------------");
-			System.out.println("## GFF2GTF.java");
+			System.out.println("## GBK2GFF.java");
 			System.out.println("## ");
-			System.out.println("## Tool to convert a 'gff' file to a gtf file.");
+			System.out.println("## Tool to convert a 'gbk' file to a fasta file for");
+			System.out.println("## the sequence and a GFF3 file for the annotations.");
 			System.out.println("## ");
-			System.out.println("## Program will create the output file with the gff");
-			System.out.println("## extension next to the input file.");
+			System.out.println("## Program will create the output files with the fasta and gff  ");
+			System.out.println("## extensions next to the input file.");
 			System.out.println("## ");
 			System.out.println("## Make sure you have sufficient disk space in");
 			System.out.println("## that folder and that you can write there.");
@@ -40,22 +45,24 @@ public class GFF2GTF {
 			System.out.println("## By Thomas Abeel (tabeel@broadinstitute.org)");
 			System.out.println("##----------------------------------------------");
 			System.out.println("## ");
-			System.out.println("## Usage java -jar gff2gtf.jar <input gbk>");
+			System.out.println("## Usage java -jar gbk2gff.jar <input gbk>");
 			System.out.println("## ");
 		}
-		System.out.println("gff2gtf");
+		System.out.println("gbk2gff");
 
-		EntrySet e = new FileSource(args[0]).read();
-		FileOutputStream gtf = new FileOutputStream(args[0] + ".gtf");
-	
-		for (Entry entry : e) {
+		
+
+		val e = new FileSource(args(0)).read();
+		val gff = new FileOutputStream(args(0) + ".gff");
+		val fasta = new FileOutputStream(args(0) + ".fa");
+		for (entry <- e) {
 			System.out.println(entry);
 			System.out.println(entry.sequence().size());
-			new GTFParser().write(gtf, entry);
-
+			Parser.GFF3.write(gff, entry);
+			new FastaParser().write(fasta, entry);
 		}
-		gtf.close();
-		
+		gff.close();
+		fasta.close();
 
 	}
 
