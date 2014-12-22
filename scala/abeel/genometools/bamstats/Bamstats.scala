@@ -47,7 +47,7 @@ object Bamstats extends Main {
     while (filtered.hasNext) {
       val sr = filtered.next
       val s = sr.getAlignmentStart()
-      val e = sr.getMateAlignmentStart()
+      val e = if(sr.getMateAlignmentStart()>1)sr.getMateAlignmentStart() else sr.getAlignmentStart()
       val diff = math.abs(e - s) + sr.getReadLength()
       fm.count(diff)
       fmReads.count(sr.getReadLength())
