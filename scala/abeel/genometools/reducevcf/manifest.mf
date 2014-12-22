@@ -1,0 +1,2 @@
+Main-Class: abeel.genometools.reducevcf.ReduceVCF
+Class-path: scala-library.jar atk.jar ajt-2.10.jar
