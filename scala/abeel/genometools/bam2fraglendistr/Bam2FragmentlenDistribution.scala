@@ -9,20 +9,18 @@ import be.abeel.util.FrequencyMap
 import be.abeel.util.FrequencyMapUtils
 import abeel.genometools.Main
 
-object Bam2FragmentlenDistribution extends Tool with Main {
+object Bam2FragmentlenDistribution extends Main {
 
   case class Config(val inputFile: File = null, val outputFile: File = null)
 
+  
+  override val description="Tool to calculate the fragment length distribution from a BAM file"
+  
+  override val version="""
+    2014/12/22       Initial version included in genometools, prior version were stand-alone
+   """
+    
   override def main(args: Array[String]) {
-
-    println("##----------------------------------------------")
-    println("## Bam2FragmentlenDistribution.scala")
-    println("## ")
-    println("## Tool to calculate a fragment length distribution plot from a BAM file")
-    println("## ")
-    println("## ")
-    println("## By Thomas Abeel (tabeel@broadinstitute.org)")
-    println("##----------------------------------------------")
 
     try {
       val prop = new Properties();
@@ -35,7 +33,7 @@ object Bam2FragmentlenDistribution extends Tool with Main {
         e.printStackTrace();
     }
 
-    val parser = new scopt.OptionParser[Config]("java -jar bam2fragmentlenDistribution.jar") {
+    val parser = new scopt.OptionParser[Config]("java -jar genometools.jar bam2fraglendistr") {
       opt[File]('i', "input") required () action { (x, c) => c.copy(inputFile = x) } text ("Input file in which to inject data") //, { v: String => config.spacerFile = v })
       opt[File]('o', "output") required () action { (x, c) => c.copy(outputFile = x) } text ("File where you want the output to be written")
 
