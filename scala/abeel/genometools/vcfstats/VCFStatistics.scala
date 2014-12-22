@@ -1,4 +1,4 @@
-package abeel.genometools
+package abeel.genometools.vcfstats
 
 import java.io.File
 import java.io.PrintWriter
