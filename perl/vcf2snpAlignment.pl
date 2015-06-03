@@ -29,12 +29,21 @@ if ($ARGV[1]) {
     	} else {
         	chomp $in;
         	my @x = split(/\t/, $in);
-        	$sites_to_exclude{$x[0]} = 1;
+        	if ($x[0] =~ /^\d+$/) {
+        		$sites_to_exclude{$x[0]} = 1;
+        	} elsif ($x[0] =~ /^(\d+)-(\d+)$/) {
+        	    my @y = split("-", $x[0]);
+        		foreach (my $k = $y[0]; $k <= $y[1]; ++$k) {
+        			$sites_to_exclude{$k} = 1;
+        		}
+        	}
         }
     } 
     close EXFILE;
 }
 
+my $excluded_count = scalar keys %sites_to_exclude;
+print STDERR "Excluded $excluded_count sites.\n";
 #print Dumper(\%sites_to_exclude);
 
 unless (open (INFILE, $infilename)) {
@@ -49,7 +58,7 @@ my %genome_list;
 
 foreach my $in (<INFILE>) {
     chomp $in;
-    if ($in =~ /([\w-]+)(\.annotated)*\.vcf$/) { 
+    if ($in =~ /([\w-]+)\/([\w-]+)(\.annotated)*\.vcf$/) { 
         my $genome = $1;
     
         unless (open (VCFFILE, $in)) {
@@ -57,7 +66,8 @@ foreach my $in (<INFILE>) {
         }
         
         print STDERR "Searching $in...\n";
-
+		print STDERR "Genome key $genome\n";
+		
         $genome_list{$genome} = 1; 
         
         foreach my $vcfline (<VCFFILE>) {
@@ -119,4 +129,3 @@ sub print_fasta {
 }
 
 exit;
-
