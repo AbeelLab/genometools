@@ -10,12 +10,20 @@ import abeel.genometools.reducevcf.ReduceVCF
 import abeel.genometools.vcfstats.VCFStatistics
 import atk.util.Tool
 import abeel.genometools.bamstats.Bamstats
+import abeel.genometools.phy2maf.Phy2Maf
 
 trait Main extends Tool {
   def main(args: Array[String]) {}
 }
-object GenomeToolsConsole {
 
+
+object GenomeToolsConsole extends Tool{
+
+  override val version="""
+    2015/06/19   Added phy2maf
+    
+    """
+  
   val instructions: Map[String, Main] = Map(
 
     "bam2fraglendistr" -> Bam2FragmentlenDistribution,
@@ -27,7 +35,9 @@ object GenomeToolsConsole {
     "gff2gtf" -> GFF2GTF,
     "inject" -> InjectColumns,
     "reducevcf" -> ReduceVCF,
-    "vcfstats" -> VCFStatistics)
+    "vcfstats" -> VCFStatistics,
+    "phy2maf" -> Phy2Maf
+    )
   def main(args: Array[String]): Unit = {
 
     if (args.length == 0 || !instructions.contains(args(0))) {
