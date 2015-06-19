@@ -11,6 +11,7 @@ import abeel.genometools.vcfstats.VCFStatistics
 import atk.util.Tool
 import abeel.genometools.bamstats.Bamstats
 import abeel.genometools.phy2maf.Phy2Maf
+import abeel.genometools.sort.MFA
 
 trait Main extends Tool {
   def main(args: Array[String]) {}
@@ -36,7 +37,8 @@ object GenomeToolsConsole extends Tool{
     "inject" -> InjectColumns,
     "reducevcf" -> ReduceVCF,
     "vcfstats" -> VCFStatistics,
-    "phy2maf" -> Phy2Maf
+    "phy2maf" -> Phy2Maf,
+    "sort_mfa" -> MFA
     )
   def main(args: Array[String]): Unit = {
 
