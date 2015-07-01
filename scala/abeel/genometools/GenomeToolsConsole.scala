@@ -12,6 +12,7 @@ import atk.util.Tool
 import abeel.genometools.bamstats.Bamstats
 import abeel.genometools.phy2maf.Phy2Maf
 import abeel.genometools.sort.MFA
+import abeel.genometools.vcf.ConservedRegions
 
 trait Main extends Tool {
   def main(args: Array[String]) {}
@@ -20,9 +21,19 @@ trait Main extends Tool {
 
 object GenomeToolsConsole extends Tool{
 
+  
+  
+  def getDeclaredFields(cc: AnyRef) ={
+    val m=(Map[String, Any]() /: cc.getClass.getDeclaredFields) { (a, f) =>
+      f.setAccessible(true)
+      a + (f.getName -> f.get(cc))
+    }
+    m.toList.sortBy(_._1)
+  }
+  
   override val version="""
     2015/06/19   Added phy2maf
-    
+    2015/07/01   Added vcf2conserved
     """
   
   val instructions: Map[String, Main] = Map(
@@ -38,7 +49,8 @@ object GenomeToolsConsole extends Tool{
     "reducevcf" -> ReduceVCF,
     "vcfstats" -> VCFStatistics,
     "phy2maf" -> Phy2Maf,
-    "sort_mfa" -> MFA
+    "sort_mfa" -> MFA,
+    "vcf2conserved" -> ConservedRegions
     )
   def main(args: Array[String]): Unit = {
 
