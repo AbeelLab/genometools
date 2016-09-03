@@ -24,8 +24,8 @@ This tool is still in development and is not for general use.
   override def main(args: Array[String]) {
 
     val parser = new scopt.OptionParser[Config]("java -jar genometools.jar gfa-statistics") {
-      //      opt[File]('i', "input") required () action { (x, c) => c.copy(inputFile = x) } text ("Input GFA formatted file.")
-      //      opt[File]('o', "output") required () action { (x, c) => c.copy(outputFile = x) } text ("Output file containing statistics.")
+            opt[File]('i', "input") required () action { (x, c) => c.copy(inputFile = x) } text ("Input GFA formatted file.")
+//            opt[File]('o', "output") action { (x, c) => c.copy(outputFile = x) } text ("Output file containing statistics.")
 
     }
     parser.parse(args, Config()) map { config =>
