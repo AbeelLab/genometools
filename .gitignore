@@ -18,3 +18,5 @@ project/plugins/project/
 .scala_dependencies
 
 genometools-development.zip
+/test*
+/.cache-main
