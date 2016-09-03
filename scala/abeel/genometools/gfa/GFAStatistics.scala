@@ -8,7 +8,7 @@ import scala.collection.mutable.MutableList
  * Program to calculate statistics on GFA files
  */
 
-object SharedContent extends Main {
+object GFAStatistics extends Main {
 
   override val description = """Tool to calculate basic statistics from a GFA file.
 
