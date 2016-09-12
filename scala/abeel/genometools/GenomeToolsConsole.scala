@@ -8,12 +8,17 @@ import abeel.genometools.gff2gtf.GFF2GTF
 import abeel.genometools.inject.InjectColumns
 import abeel.genometools.reducevcf.ReduceVCF
 import abeel.genometools.vcfstats.VCFStatistics
+import abeel.genometools.gfa.GFAStatistics
+
 import atk.util.Tool
 import abeel.genometools.bamstats.Bamstats
 import abeel.genometools.phy2maf.Phy2Maf
 import abeel.genometools.sort.MFA
 import abeel.genometools.vcf.ConservedRegions
 import abeel.genometools.vcf.VCF2gcWindows
+import abeel.genometools.vcf.VCF2mutationMatrix
+import abeel.genometools.faq.Faq2Kmer
+import abeel.genometools.faq.FaqStats
 
 trait Main extends Tool {
   def main(args: Array[String]) {}
@@ -36,6 +41,9 @@ object GenomeToolsConsole extends Tool{
     2015/06/19   Added phy2maf
     2015/07/01   Added vcf2conserved
     2016/01/25   Added vcf2gc
+    2016/05/23   Added vcf2matrix
+    2016/09/02   Added gfa-statistics
+    2016/09/12   Added faq2kmer and faqstats
     """
   
   val instructions: Map[String, Main] = Map(
@@ -45,6 +53,8 @@ object GenomeToolsConsole extends Tool{
     "bam2readnames" -> Bam2ReadNames,
     "bam2tdf" -> ConvertBAM2TDF,
     "bamstats" ->Bamstats,
+    "faq2kmer" ->Faq2Kmer,
+    "faqstats" ->FaqStats,
     "gbk2gff" -> GBK2GFF,
     "gff2gtf" -> GFF2GTF,
     "inject" -> InjectColumns,
@@ -53,7 +63,11 @@ object GenomeToolsConsole extends Tool{
     "phy2maf" -> Phy2Maf,
     "sort_mfa" -> MFA,
     "vcf2conserved" -> ConservedRegions,
-    "vcf2gc"->VCF2gcWindows
+    "vcf2gc"->VCF2gcWindows,
+    "vcf2matrix"->VCF2mutationMatrix,
+    "gfa-statistics"->GFAStatistics
+    
+    
     )
   def main(args: Array[String]): Unit = {
 
