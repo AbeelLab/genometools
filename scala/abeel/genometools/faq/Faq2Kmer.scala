@@ -26,16 +26,7 @@ object Faq2Kmer extends Main {
 
   override def main(args: Array[String]) {
 
-    try {
-      val prop = new Properties();
-      prop.load(Faq2Kmer.getClass().getResourceAsStream("/tool.properties"));
-      println("## Program=" + prop.getProperty("program"));
-      println("## Version=" + prop.getProperty("version"));
-    } catch {
-      case e: Exception =>
-        System.err.println("Problem while reading version information");
-        e.printStackTrace();
-    }
+   
 
     val parser = new scopt.OptionParser[Config]("java -jar genometools.jar faq2kmer") {
       opt[File]('i', "input") required () action { (x, c) => c.copy(inputFile = x) } text ("Input file. By default FASTA formatted. If you have a FASTQ, use the --fq flag")
