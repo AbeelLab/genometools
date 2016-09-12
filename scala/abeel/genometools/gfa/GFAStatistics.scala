@@ -3,6 +3,7 @@ import abeel.genometools.Main
 import java.io.File
 import java.io.PrintWriter
 import scala.collection.mutable.MutableList
+import atk.tools.Histogram
 
 /**
  * Program to calculate statistics on GFA files
@@ -24,19 +25,19 @@ This tool is still in development and is not for general use.
   override def main(args: Array[String]) {
 
     val parser = new scopt.OptionParser[Config]("java -jar genometools.jar gfa-statistics") {
-            opt[File]('i', "input") required () action { (x, c) => c.copy(inputFile = x) } text ("Input GFA formatted file.")
-//            opt[File]('o', "output") action { (x, c) => c.copy(outputFile = x) } text ("Output file containing statistics.")
+      opt[File]('i', "input") required () action { (x, c) => c.copy(inputFile = x) } text ("Input GFA formatted file.")
+      //            opt[File]('o', "output") action { (x, c) => c.copy(outputFile = x) } text ("Output file containing statistics.")
 
     }
     parser.parse(args, Config()) map { config =>
 
-            assume(config.inputFile != null)
+      assume(config.inputFile != null)
       //      assume(config.outputFile != null)
 
       val cc = new Config(config.inputFile, null)
 
       val gfa = tLines(cc.inputFile)
-//      val pw = new PrintWriter(cc.outputFile)
+      //      val pw = new PrintWriter(cc.outputFile)
       val map = gfa.map(line => line.split("\t"))
 
       val grouped = map.groupBy { x => x(0) }
@@ -85,34 +86,31 @@ This tool is still in development and is not for general use.
       val tailNodes = segments.filter(seg => seg.outgoing.size == 0)
       println("Tail nodes: " + tailNodes.size)
       println(tailNodes.mkString("\n"))
-      
+
       nfP.setMaximumFractionDigits(0)
-      
+
       val ss = grouped("S")
       val ll = grouped("L")
-      println("genomes=\t"+genomeCount)
-      println("segments=\t" + segments.size)
+      println("genomes=\t" + genomeCount)
+      println("segments=\t" + ss.size)
       println("links=\t" + links.size)
       val sumLen = (ss.map(seg => seg(2).size)).sum
-      println("total segment size=\t" + sumLen + " (" + nfP.format(sumLen / h37rvlen)+")")
+      println("total segment size=\t" + sumLen + " (" + nfP.format(sumLen / h37rvlen) + ")")
       val genomeCountPerSegmentWithSegmentLength = (ss.map(seg => seg(4).split(";").size -> seg(2).size))
       println("private segment count=\t" + genomeCountPerSegmentWithSegmentLength.filter(_._1 == 1).size)
       println("private segment sum size=\t" + genomeCountPerSegmentWithSegmentLength.filter(_._1 == 1).map(_._2).sum)
       println("private SNP count=\t" + genomeCountPerSegmentWithSegmentLength.filter(_._1 == 1).map(_._2).filter(_ == 1).sum)
       println("shared segment count=\t" + genomeCountPerSegmentWithSegmentLength.filter(f => f._1 > 1 && f._1 < genomeCount).size)
-      val fraction = 1.0
+      val fraction = 0.90
       println("shared segment sum size=\t" + genomeCountPerSegmentWithSegmentLength.filter(f => f._1 > 1 && f._1 < (genomeCount * fraction)).map(_._2).sum)
-      
-      
- 
+
+      Histogram.plot(genomeCountPerSegmentWithSegmentLength.map(_._1 + 0.0), "histogram", "Genomes per segment", "Frequency")
+
       println("core segment count=\t" + genomeCountPerSegmentWithSegmentLength.filter(f => f._1 == genomeCount).size)
       val coreLen = genomeCountPerSegmentWithSegmentLength.filter(f => f._1 >= (genomeCount * fraction)).map(_._2).sum
-      println("core segment sum size=\t" + coreLen + " (" + nfP.format(coreLen / h37rvlen)+")")
+      println("core segment sum size=\t" + coreLen + " (" + nfP.format(coreLen / h37rvlen) + ")")
 
-
-      
-      
-//      pw.close
+      //      pw.close
 
     }
   }
