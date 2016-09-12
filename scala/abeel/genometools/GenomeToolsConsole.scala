@@ -41,7 +41,7 @@ object GenomeToolsConsole extends Tool{
     2015/06/19   Added phy2maf
     2015/07/01   Added vcf2conserved
     2016/01/25   Added vcf2gc
-    2016/05/23   Added vcf2matrix
+    2016/05/23   Added vcf2matrix -- does not work yet
     2016/09/02   Added gfa-statistics
     2016/09/12   Added faq2kmer and faqstats
     """
