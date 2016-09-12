@@ -21,3 +21,4 @@ genometools-development.zip
 /test*
 /.cache-main
 /histogram.png
+/.url-cache/
