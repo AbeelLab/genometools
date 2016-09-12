@@ -1,4 +1,4 @@
-package abeel.genometools.faq2kmer
+package abeel.genometools.faq
 
 import java.util.Properties
 import java.io.File
@@ -12,6 +12,7 @@ import java.util.HashMap
 import atk.compbio.fastq.FastQFile
 import atk.compbio.DNAString
 import atk.compbio.fastq.FastAFile
+import java.io.PrintWriter
 
 object Faq2Kmer extends Main {
 
@@ -37,8 +38,8 @@ object Faq2Kmer extends Main {
     }
 
     val parser = new scopt.OptionParser[Config]("java -jar genometools.jar faq2kmer") {
-      opt[File]('i', "input") required () action { (x, c) => c.copy(inputFile = x) } text ("Input file. By default FASTA formatted. If you have a FASTQ, use the --fq flag") //, { v: String => config.spacerFile = v })
-      opt[Unit]("fq") action { (x, c) => c.copy(fastq = true) } text ("Input file. By default FASTA formatted. If you have a FASTQ, use the --fq flag") //, { v: String => config.spacerFile = v })
+      opt[File]('i', "input") required () action { (x, c) => c.copy(inputFile = x) } text ("Input file. By default FASTA formatted. If you have a FASTQ, use the --fq flag")
+      opt[Unit]("fq") action { (x, c) => c.copy(fastq = true) } text ("If you have a FASTQ file, use this flag") 
       opt[File]('o', "output") required () action { (x, c) => c.copy(outputFile = x) } text ("File where you want the output to be written")
       opt[Int]('k', "kmer") action { (x, c) => c.copy(kmer = x) } text ("Kmer length, default = 4")
 
@@ -61,15 +62,17 @@ object Faq2Kmer extends Main {
       FastAFile(config.inputFile).map(fr => fr.seq).map(seq => seq.sliding(config.kmer))
 
     val map = scala.collection.mutable.Map[DNAString, Int]().withDefaultValue(0)
-    var c = 0
     for (sq <- kmerIt.flatten) {
       val seq = new DNAString(sq)
       map(seq) += 1
-      println(map)
-      c += 1
-      if (c == 10)
-        System.exit(1)
+
     }
+
+    val pw = new PrintWriter(config.outputFile)
+    pw.println(generatorInfo(config))
+    map.map { case (x, y) => pw.println(x + "\t" + y) }
+
+    pw.close
 
   }
 
