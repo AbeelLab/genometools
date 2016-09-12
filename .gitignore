@@ -20,3 +20,4 @@ project/plugins/project/
 genometools-development.zip
 /test*
 /.cache-main
+/histogram.png
