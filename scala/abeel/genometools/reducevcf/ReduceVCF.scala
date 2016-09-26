@@ -7,8 +7,11 @@ import scala.io.Source
 import atk.util.Tool
 import be.abeel.util.CountMap
 import atk.compbio.vcf.VCFLine
+import atk.compbio.vcf.Match
 import atk.compbio.vcf._
 import abeel.genometools.Main
+import atk.compbio.vcf.SingleSubstitution
+
 
 /**
  * Program to whittle down VCF file to variation sites that pass all filters!
@@ -109,7 +112,7 @@ object ReduceVCF extends Tool with Main {
           }
 
           vcfLine.variation match {
-            case p: Match =>
+            case Match =>
               if (vcfLine.pass)
                 samePass += 1
               else {

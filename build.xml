@@ -21,7 +21,7 @@
 		<include name="lib/jfreechart-*.jar" />
 
 
-		<include name="lib_compile/scala-2.10.2/scala-library.jar" />
+		<include name="lib_compile/scala-2.11.8/scala-library.jar" />
 	</fileset>
 
 	<!-- Code below should not be changed -->
