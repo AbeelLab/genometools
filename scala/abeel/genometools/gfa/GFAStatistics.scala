@@ -4,6 +4,7 @@ import java.io.File
 import java.io.PrintWriter
 import scala.collection.mutable.MutableList
 import atk.tools.Histogram
+import atk.tools.Histogram.HistogramConfig
 
 /**
  * Program to calculate statistics on GFA files
@@ -104,7 +105,7 @@ This tool is still in development and is not for general use.
       val fraction = 0.90
       println("shared segment sum size=\t" + genomeCountPerSegmentWithSegmentLength.filter(f => f._1 > 1 && f._1 < (genomeCount * fraction)).map(_._2).sum)
 
-      Histogram.plot(genomeCountPerSegmentWithSegmentLength.map(_._1 + 0.0), "histogram", "Genomes per segment", "Frequency")
+      Histogram.plot(genomeCountPerSegmentWithSegmentLength.map(_._1 + 0.0), "histogram", "Genomes per segment", "Frequency",new HistogramConfig())
 
       println("core segment count=\t" + genomeCountPerSegmentWithSegmentLength.filter(f => f._1 == genomeCount).size)
       val coreLen = genomeCountPerSegmentWithSegmentLength.filter(f => f._1 >= (genomeCount * fraction)).map(_._2).sum

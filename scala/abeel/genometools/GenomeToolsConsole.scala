@@ -19,6 +19,7 @@ import abeel.genometools.vcf.VCF2gcWindows
 import abeel.genometools.vcf.VCF2mutationMatrix
 import abeel.genometools.faq.Faq2Kmer
 import abeel.genometools.faq.FaqStats
+import abeel.genometools.bam.Bam2Kmer
 
 trait Main extends Tool {
   def main(args: Array[String]) {}
@@ -53,6 +54,7 @@ object GenomeToolsConsole extends Tool{
     "bam2readnames" -> Bam2ReadNames,
     "bam2tdf" -> ConvertBAM2TDF,
     "bamstats" ->Bamstats,
+    "bam2kmer" -> Bam2Kmer,
     "faq2kmer" ->Faq2Kmer,
     "faqstats" ->FaqStats,
     "gbk2gff" -> GBK2GFF,
