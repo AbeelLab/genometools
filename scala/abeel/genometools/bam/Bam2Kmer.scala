@@ -9,6 +9,8 @@ import abeel.genometools.Main
 import net.sf.samtools.SAMFileReader.ValidationStringency
 import atk.util.TimeInterval
 import atk.compbio.DNAHash
+import java.util.Formatter.DateTime
+import java.time.LocalDateTime
 
 object Bam2Kmer extends Main {
   case class Config(val inputFile: File = null, val outputFile: File = null, val kmer: Int = 4)
@@ -49,7 +51,7 @@ object Bam2Kmer extends Main {
     for (samRecord <- sfr.iterator()) {
       if (counter % 10000 == 0) {
         val interval = System.currentTimeMillis() - startTime
-        println("Processing: " + counter + "\t" + new TimeInterval(interval) + "\t" + nf.format(counter*1000L / (interval + .1)) + " reads/s")
+        println("Processing: " + counter + "\t" + new TimeInterval(interval) + "\t" + nf.format(counter*1000L / (interval + .1)) + " reads/s"+"\t"+LocalDateTime.now())
       }
       counter += 1
       val sr = new String(samRecord.getReadBases)
