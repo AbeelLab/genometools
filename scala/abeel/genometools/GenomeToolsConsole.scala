@@ -20,57 +20,59 @@ import abeel.genometools.vcf.VCF2mutationMatrix
 import abeel.genometools.faq.Faq2Kmer
 import abeel.genometools.faq.FaqStats
 import abeel.genometools.bam.Bam2Kmer
+import abeel.genometools.kmer.ReduceKmer
+import abeel.genometools.nwk.Nwk2Nodes
+import abeel.genometools.nwk.Tree2List
+
 
 trait Main extends Tool {
   def main(args: Array[String]) {}
 }
 
+object GenomeToolsConsole extends Tool {
 
-object GenomeToolsConsole extends Tool{
-
-  
-  
-  def getDeclaredFields(cc: AnyRef) ={
-    val m=(Map[String, Any]() /: cc.getClass.getDeclaredFields) { (a, f) =>
+  def getDeclaredFields(cc: AnyRef) = {
+    val m = (Map[String, Any]() /: cc.getClass.getDeclaredFields) { (a, f) =>
       f.setAccessible(true)
       a + (f.getName -> f.get(cc))
     }
     m.toList.sortBy(_._1)
   }
-  
-  override val version="""
+
+  override val version = """
     2015/06/19   Added phy2maf
     2015/07/01   Added vcf2conserved
     2016/01/25   Added vcf2gc
     2016/05/23   Added vcf2matrix -- does not work yet
     2016/09/02   Added gfa-statistics
     2016/09/12   Added faq2kmer and faqstats
+    2016/09/27   Added bam2kmer, reducekmer, nwk2list, nwk2nodes
     """
-  
+
   val instructions: Map[String, Main] = Map(
 
     "bam2fraglendistr" -> Bam2FragmentlenDistribution,
 
     "bam2readnames" -> Bam2ReadNames,
     "bam2tdf" -> ConvertBAM2TDF,
-    "bamstats" ->Bamstats,
+    "bamstats" -> Bamstats,
     "bam2kmer" -> Bam2Kmer,
-    "faq2kmer" ->Faq2Kmer,
-    "faqstats" ->FaqStats,
+    "faq2kmer" -> Faq2Kmer,
+    "faqstats" -> FaqStats,
     "gbk2gff" -> GBK2GFF,
     "gff2gtf" -> GFF2GTF,
     "inject" -> InjectColumns,
+    "nwk2list" -> Tree2List,
+    "nwk2nodes" -> Nwk2Nodes,
+    "reducekmer" -> ReduceKmer,
     "reducevcf" -> ReduceVCF,
-    "vcfstats" -> VCFStatistics,
     "phy2maf" -> Phy2Maf,
     "sort_mfa" -> MFA,
     "vcf2conserved" -> ConservedRegions,
-    "vcf2gc"->VCF2gcWindows,
-    "vcf2matrix"->VCF2mutationMatrix,
-    "gfa-statistics"->GFAStatistics
-    
-    
-    )
+    "vcf2gc" -> VCF2gcWindows,
+    "vcf2matrix" -> VCF2mutationMatrix,
+    "vcfstats" -> VCFStatistics,
+    "gfa-statistics" -> GFAStatistics)
   def main(args: Array[String]): Unit = {
 
     if (args.length == 0 || !instructions.contains(args(0))) {
@@ -88,7 +90,7 @@ object GenomeToolsConsole extends Tool{
   def listInstructions() {
     println("Usage:java -jar genometools.jar <instruction> [options...]")
     println("Instructions:")
-    println(instructions.toList.sortBy(_._1).map(f => String.format("    %1$-20s",f._1) + f._2.description).mkString("\n"))
+    println(instructions.toList.sortBy(_._1).map(f => String.format("    %1$-20s", f._1) + f._2.description).mkString("\n"))
 
   }
 
