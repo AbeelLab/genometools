@@ -23,6 +23,8 @@ import abeel.genometools.bam.Bam2Kmer
 import abeel.genometools.kmer.ReduceKmer
 import abeel.genometools.nwk.Nwk2Nodes
 import abeel.genometools.nwk.Tree2List
+import abeel.genometools.kmer.KmerIntersection
+import abeel.genometools.kmer.Kmer2AP
 
 
 trait Main extends Tool {
@@ -46,7 +48,7 @@ object GenomeToolsConsole extends Tool {
     2016/05/23   Added vcf2matrix -- does not work yet
     2016/09/02   Added gfa-statistics
     2016/09/12   Added faq2kmer and faqstats
-    2016/09/27   Added bam2kmer, reducekmer, nwk2list, nwk2nodes
+    2016/09/27   Added bam2kmer, reducekmer, nwk2list, nwk2nodes, intersect-kmer
     """
 
   val instructions: Map[String, Main] = Map(
@@ -62,6 +64,8 @@ object GenomeToolsConsole extends Tool {
     "gbk2gff" -> GBK2GFF,
     "gff2gtf" -> GFF2GTF,
     "inject" -> InjectColumns,
+    "intersect-kmer" ->KmerIntersection,
+    "kmer2matrix"->Kmer2AP,
     "nwk2list" -> Tree2List,
     "nwk2nodes" -> Nwk2Nodes,
     "reducekmer" -> ReduceKmer,
