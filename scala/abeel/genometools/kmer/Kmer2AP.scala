@@ -59,7 +59,7 @@ object Kmer2AP extends Main {
     
     val map = scala.collection.mutable.Map[Long, BitSet]() //.withDefaultValue(new FixedSizeBitSet(indexedStrains.size))
     for (strain <- indexedStrains) {
-      println("processing: " + strain._1 + "\t" + LocalDateTime.now()+"\t"+map.size)
+      println("processing "+(strain._2+1)+"/"+indexedStrains.size+": " + strain._1 + "\t" + LocalDateTime.now()+"\t"+map.size)
       for (line <- tLinesIterator(strain._1)) {
         val seq = line.split("\t")(0)
         val ds = DNAHash.hash(seq) //new DNAString(seq)
