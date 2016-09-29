@@ -76,7 +76,9 @@ object Kmer2AP extends Main {
 
     map.map(f => pw.println(DNAHash.unhash(f._1, hashSize) + "\t" + BitSetTools.toString(f._2, indexedStrains.size)))
     //    pw.println("# " + filtered.size + " shared kmers")
+    
     pw.close
+    println("Done!")
   }
 }
 
