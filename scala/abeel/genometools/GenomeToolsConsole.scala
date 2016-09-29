@@ -25,6 +25,7 @@ import abeel.genometools.nwk.Nwk2Nodes
 import abeel.genometools.nwk.Tree2List
 import abeel.genometools.kmer.KmerIntersection
 import abeel.genometools.kmer.Kmer2AP
+import abeel.genometools.kmer.GroupAP
 
 
 trait Main extends Tool {
@@ -63,6 +64,7 @@ object GenomeToolsConsole extends Tool {
     "faqstats" -> FaqStats,
     "gbk2gff" -> GBK2GFF,
     "gff2gtf" -> GFF2GTF,
+    "groupprofile"->GroupAP,
     "inject" -> InjectColumns,
     "intersect-kmer" ->KmerIntersection,
     "kmer2matrix"->Kmer2AP,
