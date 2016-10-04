@@ -52,7 +52,7 @@ object Bam2GC extends Main {
     val sfr = new SAMFileReader(config.inputFile)
     sfr.setValidationStringency(ValidationStringency.LENIENT)
 
-    val map = scala.collection.mutable.Map[Int, Int]().withDefaultValue(0)
+    val map = scala.collection.mutable.Map[Long, Int]().withDefaultValue(0)
     var discard = 0
     var counter = 0
     for (samRecord <- sfr.iterator()) {
@@ -66,14 +66,14 @@ object Bam2GC extends Main {
       //      println("--" + x.mkString(" "))
       if (x.size < 5) {
         val gc = sr.filter(c => c == 'c' | c == 'g' | c == 'G' | c == 'C').size
-        map((gc.toDouble / sr.size * 100).toInt) += 1
+        map(math.round(gc.toDouble / sr.size * 100)) += 1
       } else {
         discard += 1
       }
 
     }
 
-    val pw = if(config.outputFile!=null) new NixWriter(config.outputFile, config) else new NixWriter(config.inputFile+".gcbias.txt",config)
+    val pw = if(config.outputFile!=null) new NixWriter(config.outputFile, config) else new NixWriter(config.inputFile+".gc",config)
     pw.println("# Processed reads = " + counter)
     pw.println("# Included reads =" + (counter - discard))
     pw.println("# Discarded reads = " + discard)
