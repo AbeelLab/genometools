@@ -27,6 +27,7 @@ import abeel.genometools.kmer.KmerIntersection
 import abeel.genometools.kmer.Kmer2AP
 import abeel.genometools.kmer.GroupAP
 import abeel.genometools.bam.Bam2GC
+import abeel.genometools.faq.Faq2GC
 
 
 trait Main extends Tool {
@@ -63,6 +64,7 @@ object GenomeToolsConsole extends Tool {
     "bamstats" -> Bamstats,
     "bam2kmer" -> Bam2Kmer,
     "bam2gc" ->Bam2GC,
+    "faq2gc" -> Faq2GC,
     "faq2kmer" -> Faq2Kmer,
     "faqstats" -> FaqStats,
     "gbk2gff" -> GBK2GFF,
