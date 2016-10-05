@@ -29,6 +29,7 @@ import abeel.genometools.kmer.GroupAP
 import abeel.genometools.bam.Bam2GC
 import abeel.genometools.faq.Faq2GC
 import abeel.genometools.tdf.TDF2GCbias
+import abeel.genometools.ena.PrepareENADownload
 
 
 trait Main extends Tool {
@@ -66,6 +67,7 @@ object GenomeToolsConsole extends Tool {
     "bamstats" -> Bamstats,
     "bam2kmer" -> Bam2Kmer,
     "bam2gc" ->Bam2GC,
+    "ena-download"->PrepareENADownload,
     "faq2gc" -> Faq2GC,
     "faq2kmer" -> Faq2Kmer,
     "faqstats" -> FaqStats,
