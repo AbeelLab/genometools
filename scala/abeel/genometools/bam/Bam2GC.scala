@@ -12,7 +12,7 @@ object Bam2GC extends Main {
 
   case class Config(val inputFile: File = null, val outputFile: File = null)
 
-  override val description = "Tool to calculate GC bias"
+  override val description = "Tool to calculate GC histogram"
 
   override val version = """
     2016/09/29       Initial version included in genometools
