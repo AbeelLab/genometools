@@ -130,7 +130,7 @@ object PrepareENADownload extends Main {
           //assume(files(0).size > 0, "There are no FASTQ files available for " + arr(0))
           pw.print("## There are no FASTQ files available for " + arr(0) + ", let's try direct SRA dump\n")
           
-          pw.print("../bin/fastq-dump --split-files -O "+fdr+"/"+" "+arr(0)+"\n")
+          pw.print("~/bin/fastq-dump --split-files -O "+fdr+"/"+" "+arr(0)+"\n")
           print("## There are no FASTQ files available for " + arr(0) + "\n")
         }
         
