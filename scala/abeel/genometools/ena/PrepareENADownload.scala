@@ -25,7 +25,7 @@ object PrepareENADownload extends Main {
   override def main(args: Array[String]): Unit = {
 
     val parser = new scopt.OptionParser[Config]("java -jar genometools.jar ena-download") {
-      opt[String]('i', "input") required () action { (x, c) => c.copy(input = x) } text ("Single ENA identifier or filename with list of identifiers.") //, { v: String => config.spacerFile = v })
+      opt[String]('i', "input") required () action { (x, c) => c.copy(input = x) } text ("Semi-colon separated list of ENA identifiers or filename with list of identifiers.") //, { v: String => config.spacerFile = v })
       opt[File]('o', "output") action { (x, c) => c.copy(output = x) } text ("Output file, by default output is written to console.")
       opt[Unit]("debug") action { (x, c) => c.copy(debug = true) } text ("Show debug output")
       opt[Unit]("broad") action { (x, c) => c.copy(broad = true) } text ("Use Broad Institute organization of projects, with an individual project per sample.")
@@ -36,7 +36,7 @@ object PrepareENADownload extends Main {
       if (f.exists()) {
         prepFromList(tColumn(0, tLines(f)), config.output, config)
       } else
-        prepFromList(List(config.input), config.output, config)
+        prepFromList(config.input.split(";").toList, config.output, config)
     }
 
   }
