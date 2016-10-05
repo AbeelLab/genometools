@@ -28,6 +28,7 @@ import abeel.genometools.kmer.Kmer2AP
 import abeel.genometools.kmer.GroupAP
 import abeel.genometools.bam.Bam2GC
 import abeel.genometools.faq.Faq2GC
+import abeel.genometools.tdf.TDF2GCbias
 
 
 trait Main extends Tool {
@@ -53,6 +54,7 @@ object GenomeToolsConsole extends Tool {
     2016/09/12   Added faq2kmer and faqstats
     2016/09/27   Added bam2kmer, reducekmer, nwk2list, nwk2nodes, intersect-kmer
     2016/09/29   Added bam2gc
+    2016/10/05   Added tdf2gcbias
     """
 
   val instructions: Map[String, Main] = Map(
@@ -79,6 +81,7 @@ object GenomeToolsConsole extends Tool {
     "reducevcf" -> ReduceVCF,
     "phy2maf" -> Phy2Maf,
     "sort_mfa" -> MFA,
+    "tdf2gcbias" -> TDF2GCbias,
     "vcf2conserved" -> ConservedRegions,
     "vcf2gc" -> VCF2gcWindows,
     "vcf2matrix" -> VCF2mutationMatrix,
