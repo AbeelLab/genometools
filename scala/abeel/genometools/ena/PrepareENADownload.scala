@@ -83,7 +83,7 @@ object PrepareENADownload extends Main {
 
     for (l <- list) {
 
-      val url = "http://www.ebi.ac.uk/ena/data/warehouse/filereport?accession=" + l + "&result=read_run&fields=run_accession,library_layout,fastq_ftp,submitted_ftp,experiment_alias,scientific_name,sample_alias&download=text"
+      val url = "http://www.ebi.ac.uk/ena/data/warehouse/filereport?accession=" + l + "&result=read_run&fields=run_accession,sample_accession,library_layout,fastq_ftp,submitted_ftp,experiment_alias,scientific_name,sample_alias&download=text"
       println("URL: " + url)
       val data = URLCache.query(url)
 
@@ -105,22 +105,22 @@ object PrepareENADownload extends Main {
         if (config.debug)
           println("SAMPLE: "+s)
 
-        val fdr = if (config.broad) l else arr(0)
+        val fdr = if (config.broad) l else arr(1)
         pw.print("mkdir " + fdr + "\n")
         pw.print("cd " + fdr + "\n")
-        val sampleNameExpand = if (arr(3).trim.size > 0)
-          arr(3).split("/").last.replaceAll(".fastq.bz2", "")
+        val sampleNameExpand = if (arr(4).trim.size > 0)
+          arr(4).split("/").last.replaceAll(".fastq.bz2", "")
         else
-          arr(4).split("_").dropRight(2).drop(1).mkString("_")
+          arr(5).split("_").dropRight(2).drop(1).mkString("_")
 
-        val sampleName = if (arr(3).trim.size > 0 && arr(3).split(";").size > 1)
+        val sampleName = if (arr(4).trim.size > 0 && arr(4).split(";").size > 1)
           sampleNameExpand.dropRight(2)
         else sampleNameExpand
         if (config.debug){
           println("L: "+l+"\tIDmap: "+idMap)
         }
         pwConversion.println(fdr + "\t" + arr(0) + "\t" + sampleName.replaceAll("_sequence", "-") + "\t" + idMap.getOrElse(l, "-")+"\t"+arr(4)+";"+arr(5)+";"+arr(6))
-        val column = if (arr(2).trim.size == 0) arr(3) else arr(2)
+        val column = if (arr(3).trim.size == 0) arr(4) else arr(3)
         val files = column.split(";")
         
         files.filterNot(_.size==0).map(f => pw.print("wget -q " + f + "\n"))
