@@ -100,7 +100,7 @@
 			</classpath>
 		</scalac>
 
-		<javac debug="true" debuglevel="lines,vars,source" destdir="${build}" excludes="junit/*.java" source="1.6" srcdir="${src}" target="1.6">
+		<javac debug="true" debuglevel="lines,vars,source" destdir="${build}" excludes="junit/*.java" source="1.8" srcdir="${src}" target="1.8">
 
 			<classpath path="${toString:build.classpath}">
 			</classpath>
