@@ -17,7 +17,7 @@ deploy:
   provider: releases
   api_key: $GITHUB_KEY
   file_glob: true
-  file: "*.zip"s
+  file: "*.zip"
   skip_cleanup: true
   on:
     tags: false
