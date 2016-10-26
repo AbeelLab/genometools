@@ -31,7 +31,7 @@
 
 	<property name="dist" value="${project}-${version}" />
 
-	<property name="jar" value="${project}.jar" />
+	<property name="jar" value="${project}-${version}.jar" />
 
 	<path id="build.classpath">
 
@@ -82,9 +82,14 @@
 
 		<mkdir dir="${dist}" />
 
-		<copy flatten="true" todir="${dist}/">
+		<copy todir="${dist}">
 
-			<fileset refid="jarfiles" />
+			<fileset dir=".">
+
+				<include name="README.md" />
+				<include name="LICENSE" />
+			</fileset>
+			
 		</copy>
 
 		<propertyfile file="${build}/tool.properties">
@@ -108,15 +113,18 @@
 
 
 
-		<jar basedir="${build}" destfile="${dist}/${jar}">
 
+
+		<jar destfile="${dist}/${jar}" basedir="${build}">
+			<zipgroupfileset dir="lib/" includes="*.jar" />
+			<zipgroupfileset dir="lib_compile/scala-2.11.8/" includes="scala-library.jar" />
 			<manifest>
-
+				<attribute name="Built-By" value="${user.name}" />
 				<attribute name="Main-Class" value="${manifest.mainClass}" />
 
-				<attribute name="Class-Path" value="${manifest.classpath}" />
 			</manifest>
 		</jar>
+
 
 
 
