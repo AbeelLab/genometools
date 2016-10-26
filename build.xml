@@ -11,10 +11,9 @@
 
 		<include name="lib/atk-*.jar" />
 
-		<include name="lib/ajt-*.jar" />
 		<include name="lib/collections-*.jar" />
 
-		<include name="lib/jannot-*.jar" />
+		<include name="lib/genomeview-*.jar" />
 
 		<include name="lib/sam-*.jar" />
 		<include name="lib/jcommon-*.jar" />

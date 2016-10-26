@@ -30,6 +30,8 @@ import abeel.genometools.bam.Bam2GC
 import abeel.genometools.faq.Faq2GC
 import abeel.genometools.tdf.TDF2GCbias
 import abeel.genometools.ena.PrepareENADownload
+import net.sf.jannot.mafix.MAFIndex
+import abeel.genometools.maf.MAFIndex
 
 
 trait Main extends Tool {
@@ -56,6 +58,7 @@ object GenomeToolsConsole extends Tool {
     2016/09/27   Added bam2kmer, reducekmer, nwk2list, nwk2nodes, intersect-kmer
     2016/09/29   Added bam2gc
     2016/10/05   Added tdf2gcbias
+    2016/10/26   Added mafix
     """
 
   val instructions: Map[String, Main] = Map(
@@ -77,6 +80,7 @@ object GenomeToolsConsole extends Tool {
     "inject" -> InjectColumns,
     "intersect-kmer" ->KmerIntersection,
     "kmer2matrix"->Kmer2AP,
+    "mafix" ->MAFIndex,
     "nwk2list" -> Tree2List,
     "nwk2nodes" -> Nwk2Nodes,
     "reducekmer" -> ReduceKmer,
