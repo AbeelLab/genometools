@@ -12,7 +12,7 @@ import atk.util.NaturalOrderComparator
 
 object VCF2mutationMatrix extends Main {
 
-  override val description=""" Tool to convert a set of VCF files to a mutation matrix
+  override val description = """ Tool to convert a set of VCF files to a mutation matrix
 
 WARNING: THIS TOOL HAS HARDCODED MAGIC VALUES AND IS INCOMPLETE!!!
 
@@ -22,14 +22,13 @@ This tool is still in development and is not for general use.
 
 
 """
-  
-  
+
   case class Config(val input: File = null, val output: File = null, val sizeLimit: Int = 10)
 
   override def main(args: Array[String]): Unit = {
 
     val parser = new scopt.OptionParser[Config]("java -jar genometools.jar vcf2matrix") {
-      opt[File]('i', "input") required () action { (x, c) => c.copy(input = x) } text ("Input directory")
+      opt[File]('i', "input") required () action { (x, c) => c.copy(input = x) } text ("Input file with a list of VCF files")
       opt[File]('o', "output") required () action { (x, c) => c.copy(output = x) } text ("Output file")
       opt[Int]("sizeLimit") action { (x, c) => c.copy(sizeLimit = x) } text ("Size limit of mutations to consider. Sites in the genome that have variants larger than this limit will be output in a separate file. (Default = 10)")
       //      opt[Int]("window") action { (x, c) => c.copy(window= x) } text ("Window size")
@@ -45,7 +44,7 @@ This tool is still in development and is not for general use.
 
       var time = System.currentTimeMillis()
 
-      val files = config.input.listFiles(new ExtensionFileFilter("vcf"))
+      val files =tLines(config.input).map(new File(_))
       pw.println("# Input files")
       pw.println("# " + files.mkString("\n# "))
 
@@ -69,7 +68,7 @@ This tool is still in development and is not for general use.
 
       val variantSet = pass.values.flatten.toSet.toList.sorted(naturalOrdering)
 
-      println(variantSet.mkString("\n"))        
+      println(variantSet.mkString("\n"))
 
       //      val file = VCFFile(config.input)
       //      val linesIn = file.toList
