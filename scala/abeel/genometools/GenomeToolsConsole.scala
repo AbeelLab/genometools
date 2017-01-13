@@ -32,6 +32,7 @@ import abeel.genometools.tdf.TDF2GCbias
 import abeel.genometools.ena.PrepareENADownload
 import net.sf.jannot.mafix.MAFIndex
 import abeel.genometools.maf.MAFIndex
+import abeel.genometools.vcf.Vcf2MFA
 
 
 trait Main extends Tool {
@@ -59,6 +60,7 @@ object GenomeToolsConsole extends Tool {
     2016/09/29   Added bam2gc
     2016/10/05   Added tdf2gcbias
     2016/10/26   Added mafix
+    2017/01/13   Added vcf2mfa
     """
 
   val instructions: Map[String, Main] = Map(
@@ -92,6 +94,7 @@ object GenomeToolsConsole extends Tool {
     "vcf2gc" -> VCF2gcWindows,
     "vcf2matrix" -> VCF2mutationMatrix,
     "vcfstats" -> VCFStatistics,
+    "vcf2mfa"->Vcf2MFA,
     "gfa-statistics" -> GFAStatistics)
   def main(args: Array[String]): Unit = {
 
