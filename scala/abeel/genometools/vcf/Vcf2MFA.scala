@@ -36,7 +36,7 @@ object Vcf2MFA extends Main {
       def getPos(file: File): List[(String, String)] = {
         //        val sample = file.getAbsoluteFile.getParentFile
         println("Reading " + file.getName + " ...")
-        val snpIterator = Source.fromFile(file).getLines.filterNot(_.startsWith("#")).filterNot(_.invalidSite).filter(_.isSNP)
+        val snpIterator = Source.fromFile(file).getLines.filterNot(_.startsWith("#")).filterNot(_.isConfirmedReference).filter(_.isSNP)
         snpIterator.map(_ match {
           case SNP(r, c, a, chr) => (chr + "_" + c, r)
         }).toList
@@ -69,14 +69,19 @@ object Vcf2MFA extends Main {
         pw.println(refMap.keySet.toList.sorted.mkString("\n"))
 
         //        p.println(vcfList.size + 1 + " " + refMap.size) //Print total number of sequences (VCF's) + reference (1st sequence) and total number of SNP positions.
+        /* Output constructed reference */
         p.println(">reference")
         refMap.keysIterator.toList.sorted.foreach(pos => p.print(refMap(pos)))
+        p.println
+        
+        
         vcfList.foreach { file => // for each file print sequence
           val name = file.getName
-          val snpMap = tLines(file).filterNot(_.invalidSite).filter(_.isSNP).map(_ match {
+          val snpMap = tLines(file).filterNot(_.isConfirmedReference).filter(_.isSNP).map(_ match {
             case SNP(r, c, a, chr) => (chr + "_" + c, a)
           }).toMap
-          val nonSnpSet = tLines(file).filterNot(_.invalidSite).filter(_.isSNP).filter { line =>
+          
+          val nonSnpSet = tLines(file).filterNot(_.isConfirmedReference).filter { line =>
             val arr = line.split("\t")
             val id = arr(0) + "_" + arr(1)
             refMap.contains(id)
@@ -86,14 +91,12 @@ object Vcf2MFA extends Main {
               val arr = line.split("\t")
               val id = arr(0) + "_" + arr(1)
               id
-          }
-            .toSet
+          }.toSet
 
           val snpSeq = refMap.keysIterator.toList.sorted.map(pos =>
             if (snpMap.contains(pos)) snpMap(pos)
             else if (nonSnpSet.contains(pos)) "N"
             else refMap(pos)).mkString
-          p.println
           p.println(">" + name)
           p.println(snpSeq)
           println(name + ":\t" + snpMap.size + "\tSNPs")

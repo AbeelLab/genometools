@@ -28,7 +28,8 @@ object Mutation {
       case _ => false
     }
     
-    def invalidSite: Boolean = {
+    
+    def isConfirmedReference: Boolean = {
       val arr = s.split("\t")
       if (arr(4) == "." && arr(6) == "PASS") true
       else false
