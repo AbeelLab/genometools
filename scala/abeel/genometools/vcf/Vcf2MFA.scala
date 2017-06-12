@@ -22,14 +22,7 @@ object Vcf2MFA extends Main {
       opt[File]('o', "output") required () action { (x, c) => c.copy(output = x) } text ("Output name.")
     }
 
-    /* Elapsed time function */
-    def time[R](block: => R): R = {
-      val t0 = System.currentTimeMillis()
-      val result = block // call-by-name
-      val t1 = System.currentTimeMillis()
-      println("Elapsed time: " + (t1 - t0) + "ms")
-      result
-    }
+    
 
     /* Get all SNP positions */
     def getPositions(fList: List[File]): Map[String, String] = {

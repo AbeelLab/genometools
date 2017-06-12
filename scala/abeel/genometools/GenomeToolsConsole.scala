@@ -37,6 +37,16 @@ import abeel.genometools.vcf.Vcf2MFA
 
 trait Main extends Tool {
   def main(args: Array[String]) {}
+  
+   /* Elapsed time function */
+    def time[R](block: => R): R = {
+      val t0 = System.currentTimeMillis()
+      val result = block // call-by-name
+      val t1 = System.currentTimeMillis()
+      println("Elapsed time: " + (t1 - t0) + "ms")
+      result
+    }
+  
 }
 
 object GenomeToolsConsole extends Tool {
