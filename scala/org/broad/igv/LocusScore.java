@@ -22,7 +22,7 @@
  */
 package org.broad.igv;
 
-import org.broad.igv.track.WindowFunction;
+import org.broad.igv.WindowFunction;
 import org.broad.tribble.Feature;
 
 /**

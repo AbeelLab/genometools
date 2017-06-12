@@ -26,8 +26,8 @@ package org.broad.igv;
 import java.util.Collection;
 import java.util.List;
 
-import org.broad.igv.feature.LocusScore;
-import org.broad.igv.track.WindowFunction;
+import org.broad.igv.LocusScore;
+import org.broad.igv.WindowFunction;
 
 /**
  * @author jrobinso

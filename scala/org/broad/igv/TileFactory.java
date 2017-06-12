@@ -23,12 +23,12 @@
 package org.broad.igv;
 
 
-import org.broad.igv.util.StringUtils;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+
+import org.broad.igv.StringUtils;
 
 /**
  * @author jrobinso

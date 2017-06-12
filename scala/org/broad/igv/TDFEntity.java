@@ -22,13 +22,12 @@
  */
 package org.broad.igv;
 
-import org.broad.igv.util.StringUtils;
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
 
 /**
  * @author jrobinso

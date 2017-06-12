@@ -22,13 +22,13 @@
  */
 package org.broad.igv;
 
-import org.broad.igv.feature.LocusScore;
-import org.broad.igv.track.WindowFunction;
+
 
 /**
  * @author jrobinso
  */
 public class BasicScore implements LocusScore {
+
 
     String chr;
     int start;

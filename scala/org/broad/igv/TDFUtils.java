@@ -27,10 +27,9 @@ import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.util.Map;
 
+import org.broad.igv.WindowFunction;
 
 import net.sf.samtools.seekablestream.SeekableFileStream;
-
-import org.broad.igv.track.WindowFunction;
 
 /**
  * @author jrobinso

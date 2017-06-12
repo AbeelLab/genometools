@@ -25,7 +25,6 @@ package org.broad.igv;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import org.broad.igv.util.StringUtils;
 
 /**
  * @author jrobinso

@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.broad.igv.util.StringUtils;
+import org.broad.igv.StringUtils;
 
 import abeel.genometools.bam2tdf.LRUCache;
 

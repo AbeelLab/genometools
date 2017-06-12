@@ -35,6 +35,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.broad.igv.TDFTile;
 import org.broad.igv.Accumulator;
 import org.broad.igv.FloatArrayList;
 import org.broad.igv.IntArrayList;
@@ -42,11 +43,10 @@ import org.broad.igv.TDFBedTile;
 import org.broad.igv.TDFDataset;
 import org.broad.igv.TDFFixedTile;
 import org.broad.igv.TDFGroup;
-import org.broad.igv.TDFTile;
 import org.broad.igv.TDFVaryTile;
 import org.broad.igv.TDFWriter;
 import org.broad.igv.WindowFunction;
-import org.broad.igv.TDFDataset.DataType;
+
 
 import net.sf.samtools.SAMSequenceDictionary;
 import net.sf.samtools.SAMSequenceRecord;

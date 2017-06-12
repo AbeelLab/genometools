@@ -22,9 +22,9 @@
  */
 package org.broad.igv;
 
-import org.broad.igv.track.WindowFunction;
-
 import java.util.List;
+
+import org.broad.igv.WindowFunction;
 
 /**
  * @author jrobinso
