@@ -3,8 +3,6 @@ package abeel.genometools
 import abeel.genometools.bam2fraglendistr.Bam2FragmentlenDistribution
 import abeel.genometools.bam2readnames.Bam2ReadNames
 import abeel.genometools.bam2tdf.ConvertBAM2TDF
-import abeel.genometools.gbk2gff.GBK2GFF
-import abeel.genometools.gff2gtf.GFF2GTF
 import abeel.genometools.inject.InjectColumns
 import abeel.genometools.reducevcf.ReduceVCF
 import abeel.genometools.vcfstats.VCFStatistics
@@ -13,7 +11,6 @@ import abeel.genometools.gfa.GFAStatistics
 import atk.util.Tool
 import abeel.genometools.bamstats.Bamstats
 import abeel.genometools.phy2maf.Phy2Maf
-import abeel.genometools.sort.MFA
 import abeel.genometools.vcf.ConservedRegions
 import abeel.genometools.vcf.VCF2gcWindows
 import abeel.genometools.vcf.VCF2mutationMatrix
@@ -28,11 +25,9 @@ import abeel.genometools.kmer.Kmer2AP
 import abeel.genometools.kmer.GroupAP
 import abeel.genometools.bam.Bam2GC
 import abeel.genometools.faq.Faq2GC
-import abeel.genometools.tdf.TDF2GCbias
 import abeel.genometools.ena.PrepareENADownload
-import net.sf.jannot.mafix.MAFIndex
-import abeel.genometools.maf.MAFIndex
 import abeel.genometools.vcf.Vcf2MFA
+import abeel.genometools.vcf.Vcf2Coverage
 
 
 trait Main extends Tool {
@@ -63,6 +58,7 @@ object GenomeToolsConsole extends Tool {
     2016/10/05   Added tdf2gcbias
     2016/10/26   Added mafix
     2017/01/13   Added vcf2mfa
+    2017/06/12   Added vcf2coverage
     """
 
   val instructions: Map[String, Main] = Map(
@@ -78,25 +74,26 @@ object GenomeToolsConsole extends Tool {
     "faq2gc" -> Faq2GC,
     "faq2kmer" -> Faq2Kmer,
     "faqstats" -> FaqStats,
-    "gbk2gff" -> GBK2GFF,
-    "gff2gtf" -> GFF2GTF,
+//    "gbk2gff" -> GBK2GFF,
+//    "gff2gtf" -> GFF2GTF,
     "groupprofile"->GroupAP,
     "inject" -> InjectColumns,
     "intersect-kmer" ->KmerIntersection,
     "kmer2matrix"->Kmer2AP,
-    "mafix" ->MAFIndex,
+//    "mafix" ->MAFIndex,
     "nwk2list" -> Tree2List,
     "nwk2nodes" -> Nwk2Nodes,
     "reducekmer" -> ReduceKmer,
     "reducevcf" -> ReduceVCF,
     "phy2maf" -> Phy2Maf,
-    "sort_mfa" -> MFA,
-    "tdf2gcbias" -> TDF2GCbias,
+//    "sort_mfa" -> MFA,
+//    "tdf2gcbias" -> TDF2GCbias,
     "vcf2conserved" -> ConservedRegions,
     "vcf2gc" -> VCF2gcWindows,
     "vcf2matrix" -> VCF2mutationMatrix,
     "vcfstats" -> VCFStatistics,
     "vcf2mfa"->Vcf2MFA,
+    "vcf2coverage"->Vcf2Coverage,
     "gfa-statistics" -> GFAStatistics)
   def main(args: Array[String]): Unit = {
 
