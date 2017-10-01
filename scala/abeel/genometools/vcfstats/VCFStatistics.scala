@@ -12,7 +12,7 @@ object VCFStatistics extends Tool with Main {
   case class Config(val input: File = null, val output: File = null)
 
   override def main(args: Array[String]): Unit = {
-    val parser = new scopt.OptionParser[Config]("java -jar vcf-statistics.jar") {
+    val parser = new scopt.OptionParser[Config]("java -jar genometools.jar vcf-statistics ") {
       opt[File]('o', "output") action { (x, c) => c.copy(output = x) } text ("File where you want the output to be written, by default the output is written to the console.")
       opt[File]('i', "input") required() action { (x, c) => c.copy(input = x) } text ("VCF file you want to analyze")
     }

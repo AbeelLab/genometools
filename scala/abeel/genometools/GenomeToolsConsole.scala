@@ -28,6 +28,7 @@ import abeel.genometools.faq.Faq2GC
 import abeel.genometools.ena.PrepareENADownload
 import abeel.genometools.vcf.Vcf2MFA
 import abeel.genometools.vcf.Vcf2Coverage
+import abeel.genometools.gfa.FastGFAStatistics
 
 
 trait Main extends Tool {
@@ -92,9 +93,12 @@ object GenomeToolsConsole extends Tool {
     "vcf2gc" -> VCF2gcWindows,
     "vcf2matrix" -> VCF2mutationMatrix,
     "vcfstats" -> VCFStatistics,
+    "vcf-statistics" -> VCFStatistics,
     "vcf2mfa"->Vcf2MFA,
     "vcf2coverage"->Vcf2Coverage,
-    "gfa-statistics" -> GFAStatistics)
+    "gfa-statistics" -> GFAStatistics,
+    "gfa-fast-statistics" -> FastGFAStatistics
+    )
   def main(args: Array[String]): Unit = {
 
     if (args.length == 0 || !instructions.contains(args(0))) {
