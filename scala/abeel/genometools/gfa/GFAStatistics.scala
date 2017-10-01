@@ -31,6 +31,9 @@ This tool is still in development and is not for general use.
       opt[File]('o', "output") action { (x, c) => c.copy(outputFile = x) } text ("Output file containing statistics.")
 
     }
+    
+    
+    
     parser.parse(args, Config()) map { config =>
       
       assume(config.inputFile != null)
@@ -42,6 +45,8 @@ This tool is still in development and is not for general use.
       //      val pw = new PrintWriter(cc.outputFile)
       val map = gfa.map(line => line.split("\t"))
 
+      
+      println("Read in memory")
       val grouped = map.groupBy { x => x(0) }
       val headers = grouped("H")
       pw.println(headers)
@@ -56,7 +61,8 @@ This tool is still in development and is not for general use.
         val arr = line.split("\t")
         assume(arr(4).startsWith("ORI"))
         //      print(".")
-        new Segment(arr(1).toInt, arr(2), arr(4).drop(6).replaceAll(".fna", "").replaceAll(".fasta", "").split(";").toList, MutableList.empty, MutableList.empty)
+        
+        new Segment(arr(1).toInt, arr(2).length(), arr(4).drop(6).replaceAll(".fna", "").replaceAll(".fasta", "").split(";").toList.map(v=>Dictionary.get(v)), MutableList.empty, MutableList.empty)
       })
 
       pw.println(0)
