@@ -44,6 +44,8 @@ object Mutation {
   }
 
   object SNP {
+    
+    var mqFilter:Int=0
     def unapply(line: String): Option[(String, Int, String,String)] = {
       val arr = line.mkString.split("\t")
       val filter = arr(6)
@@ -51,8 +53,10 @@ object Mutation {
       val alt = arr(4)
       val coordination = arr(1).toInt
       val chromosome=arr(0)
+      val col9=(arr(7).split(";").map(i=>{val arx=i.split("=");if(arx.length>1)arx(0)->arx(1) else arx(0)->"true"})).toMap
+      val mq=col9.getOrElse("MQ","0").toInt  
       val nucleotides = Array[String]("A", "C", "T", "G")
-      if (filter == "PASS" && nucleotides.contains(ref) && nucleotides.contains(alt)) Some((ref, coordination, alt,chromosome))
+      if (filter == "PASS" && nucleotides.contains(ref) && nucleotides.contains(alt)&&mq>=mqFilter) Some((ref, coordination, alt,chromosome))
       else None
     }
   }

@@ -13,13 +13,14 @@ import abeel.genometools.Main
  */
 object Vcf2MFA extends Main {
 
-  case class Config(val vcfPathFile: File = null, val output: File = null)
+  case class Config(val vcfPathFile: File = null, val output: File = null, val mq:Int=0)
 
   override def main(args: Array[String]) {
 
     val parser = new scopt.OptionParser[Config]("java -jar genometools.jar vcf2mfa") {
       opt[File]('i', "input") required () action { (x, c) => c.copy(vcfPathFile = x) } text ("VCF path file")
       opt[File]('o', "output") required () action { (x, c) => c.copy(output = x) } text ("Output name.")
+      opt[Int]("mq") action {(x,c)=>c.copy(mq=x)} text("Filter on mapping quality < <value> (default = 0, no filtering)")
     }
 
     
@@ -28,11 +29,12 @@ object Vcf2MFA extends Main {
     def getPositions(fList: List[File]): Map[String, String] = {
       def getPos(file: File): List[(String, String)] = {
         //        val sample = file.getAbsoluteFile.getParentFile
-        println("Reading " + file.getName + " ...")
+        println("Reading " + file.getParentFile().getName+"/"+file.getName + "...")
         val snpIterator = Source.fromFile(file).getLines.filterNot(_.startsWith("#")).filterNot(_.isConfirmedReference).filter(_.isSNP)
-        snpIterator.map(_ match {
+        val snpList=snpIterator.map(_ match {
           case SNP(r, c, a, chr) => (chr + "_" + c, r)
         }).toList
+        snpList
       }
       fList.flatMap(getPos(_)).toMap
     }
@@ -50,6 +52,7 @@ object Vcf2MFA extends Main {
 
     parser.parse(args, Config()) map { config =>
       time {
+        SNP.mqFilter=config.mq
         val vcfList = tLines(config.vcfPathFile).map(new File(_)).toList
         val refMap = getPositions(vcfList) // Map with ref. positions and bases
         println("Writing mfa-file...")
