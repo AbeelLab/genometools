@@ -29,7 +29,7 @@ object Vcf2MFA extends Main {
     def getPositions(fList: List[File]): Map[String, String] = {
       def getPos(file: File): List[(String, String)] = {
         //        val sample = file.getAbsoluteFile.getParentFile
-        println("Reading " + file.getParentFile().getName+"/"+file.getName + "...")
+        println("Reading " + file.getAbsoluteFile.getParentFile().getName+"/"+file.getName + "...")
         val snpIterator = Source.fromFile(file).getLines.filterNot(_.startsWith("#")).filterNot(_.isConfirmedReference).filter(_.isSNP)
         val snpList=snpIterator.map(_ match {
           case SNP(r, c, a, chr) => (chr + "_" + c, r)
