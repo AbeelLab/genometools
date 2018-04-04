@@ -22,3 +22,5 @@ genometools-development.zip
 /.cache-main
 /histogram.png
 /.url-cache/
+/*.fasta
+/*.vcf
