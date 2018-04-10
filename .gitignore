@@ -24,3 +24,4 @@ genometools-development.zip
 /.url-cache/
 /*.fasta
 /*.vcf
+/snp.matrix.*
