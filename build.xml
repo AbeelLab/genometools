@@ -14,7 +14,7 @@
 		<include name="lib/collections-*.jar" />
 		<include name="lib/commons-math3-*.jar" />
 
-		
+		<include name="lib/genomeview-*.jar" />
 		<include name="lib/sam-*.jar" />
 		<include name="lib/jcommon-*.jar" />
 		<include name="lib/jfreechart-*.jar" />
