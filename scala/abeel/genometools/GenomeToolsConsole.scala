@@ -29,6 +29,7 @@ import abeel.genometools.ena.PrepareENADownload
 import abeel.genometools.vcf.Vcf2MFA
 import abeel.genometools.vcf.Vcf2Coverage
 import abeel.genometools.gfa.FastGFAStatistics
+import pelican._
 
 
 trait Main extends Tool {
@@ -60,6 +61,7 @@ object GenomeToolsConsole extends Tool {
     2016/10/26   Added mafix
     2017/01/13   Added vcf2mfa
     2017/06/12   Added vcf2coverage
+    2018/04/10   Integrated code from pelican
     """
 
   val instructions: Map[String, Main] = Map(
@@ -97,7 +99,18 @@ object GenomeToolsConsole extends Tool {
     "vcf2mfa"->Vcf2MFA,
     "vcf2coverage"->Vcf2Coverage,
     "gfa-statistics" -> GFAStatistics,
-    "gfa-fast-statistics" -> FastGFAStatistics
+    "gfa-fast-statistics" -> FastGFAStatistics,
+    
+      "ambiguity" -> AggregateAmbiguous,
+         "picard" -> PicardLocations,
+          "pilon-metrics" -> PilonMetrics,
+         "snpmatrix" -> PairwiseSNPdistance,
+         "snpmatrix-distribution"->PairwiseSNPdistribution,
+         "suspicious" -> FlagSuspectSamples,
+         "variant2gene" -> LSP2genes,
+         "merge-projects" -> MergeProjects,
+         "extract-duplications"->ExtractDuplications,
+          "list-tree" -> TreeOrder
     )
   def main(args: Array[String]): Unit = {
 
