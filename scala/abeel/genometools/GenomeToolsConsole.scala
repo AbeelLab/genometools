@@ -31,11 +31,9 @@ import abeel.genometools.vcf.Vcf2Coverage
 import abeel.genometools.gfa.FastGFAStatistics
 import pelican._
 
-
 trait Main extends Tool {
   def main(args: Array[String]) {}
-  
-  
+
 }
 
 object GenomeToolsConsole extends Tool {
@@ -62,6 +60,7 @@ object GenomeToolsConsole extends Tool {
     2017/01/13   Added vcf2mfa
     2017/06/12   Added vcf2coverage
     2018/04/10   Integrated code from pelican
+
     """
 
   val instructions: Map[String, Main] = Map(
@@ -72,46 +71,45 @@ object GenomeToolsConsole extends Tool {
     "bam2tdf" -> ConvertBAM2TDF,
     "bamstats" -> Bamstats,
     "bam2kmer" -> Bam2Kmer,
-    "bam2gc" ->Bam2GC,
-    "ena-download"->PrepareENADownload,
+    "bam2gc" -> Bam2GC,
+    "ena-download" -> PrepareENADownload,
     "faq2gc" -> Faq2GC,
     "faq2kmer" -> Faq2Kmer,
     "faqstats" -> FaqStats,
-//    "gbk2gff" -> GBK2GFF,
-//    "gff2gtf" -> GFF2GTF,
-    "groupprofile"->GroupAP,
+    //    "gbk2gff" -> GBK2GFF,
+    //    "gff2gtf" -> GFF2GTF,
+    "groupprofile" -> GroupAP,
     "inject" -> InjectColumns,
-    "intersect-kmer" ->KmerIntersection,
-    "kmer2matrix"->Kmer2AP,
-//    "mafix" ->MAFIndex,
+    "intersect-kmer" -> KmerIntersection,
+    "kmer2matrix" -> Kmer2AP,
+    //    "mafix" ->MAFIndex,
     "nwk2list" -> Tree2List,
     "nwk2nodes" -> Nwk2Nodes,
     "reducekmer" -> ReduceKmer,
     "reducevcf" -> ReduceVCF,
     "phy2maf" -> Phy2Maf,
-//    "sort_mfa" -> MFA,
-//    "tdf2gcbias" -> TDF2GCbias,
+    //    "sort_mfa" -> MFA,
+    //    "tdf2gcbias" -> TDF2GCbias,
     "vcf2conserved" -> ConservedRegions,
     "vcf2gc" -> VCF2gcWindows,
     "vcf2matrix" -> VCF2mutationMatrix,
     "vcfstats" -> VCFStatistics,
     "vcf-statistics" -> VCFStatistics,
-    "vcf2mfa"->Vcf2MFA,
-    "vcf2coverage"->Vcf2Coverage,
+    "vcf2mfa" -> Vcf2MFA,
+    "vcf2coverage" -> Vcf2Coverage,
     "gfa-statistics" -> GFAStatistics,
     "gfa-fast-statistics" -> FastGFAStatistics,
-    
-      "ambiguity" -> AggregateAmbiguous,
-         "picard" -> PicardLocations,
-          "pilon-metrics" -> PilonMetrics,
-         "snpmatrix" -> PairwiseSNPdistance,
-         "snpmatrix-distribution"->PairwiseSNPdistribution,
-         "suspicious" -> FlagSuspectSamples,
-         "variant2gene" -> LSP2genes,
-         "merge-projects" -> MergeProjects,
-         "extract-duplications"->ExtractDuplications,
-          "list-tree" -> TreeOrder
-    )
+
+    "ambiguity" -> AggregateAmbiguous,
+    "picard" -> PicardLocations,
+    "pilon-metrics" -> PilonMetrics,
+    "snpmatrix" -> PairwiseSNPdistance,
+    "snpmatrix-distribution" -> PairwiseSNPdistribution,
+    "suspicious" -> FlagSuspectSamples,
+    "variant2gene" -> LSP2genes,
+    "merge-projects" -> MergeProjects,
+    "extract-duplications" -> ExtractDuplications,
+    "list-tree" -> TreeOrder)
   def main(args: Array[String]): Unit = {
 
     if (args.length == 0 || !instructions.contains(args(0))) {
