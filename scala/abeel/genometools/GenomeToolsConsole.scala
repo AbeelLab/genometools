@@ -101,7 +101,6 @@ object GenomeToolsConsole extends Tool {
     "gfa-fast-statistics" -> FastGFAStatistics,
 
     "ambiguity" -> AggregateAmbiguous,
-    "picard" -> PicardLocations,
     "pilon-metrics" -> PilonMetrics,
     "snpmatrix" -> PairwiseSNPdistance,
     "snpmatrix-distribution" -> PairwiseSNPdistribution,
@@ -110,6 +109,7 @@ object GenomeToolsConsole extends Tool {
     "merge-projects" -> MergeProjects,
     "extract-duplications" -> ExtractDuplications,
     "list-tree" -> TreeOrder)
+    
   def main(args: Array[String]): Unit = {
 
     if (args.length == 0 || !instructions.contains(args(0))) {
