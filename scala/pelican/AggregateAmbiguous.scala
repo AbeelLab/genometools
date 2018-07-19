@@ -11,9 +11,11 @@ import atk.io.PatternFileFilter
 import abeel.genometools.Main
 
 object AggregateAmbiguous extends Main {
+  
+  override def description = """Aggregate ambiguity information from VCF files"""
   case class Config(val input: File = null, val outputPrefix: String = "ambiguity")
   override def main(args: Array[String]) {
-    val parser = new scopt.OptionParser[Config]("java -jar pelican.jar ambiguous") {
+    val parser = new scopt.OptionParser[Config]("java -jar genometools.jar ambiguous") {
       opt[File]('i', "input") required () action { (x, c) => c.copy(input = x) } text ("Folder with VCF files to scan") //, { v: String => config.spacerFile = v })
       opt[String]('o', "output") action { (x, c) => c.copy(outputPrefix = x) } text ("Output prefix")
 
@@ -28,18 +30,7 @@ object AggregateAmbiguous extends Main {
   val defaultPattern = ".*.annotated.vcf"
   def process(config: Config) {
 
-    //    val folder = "v:/TB-ARC/KRITH_extended/"
-    //    val gs = tLines(folder + "feb18/gnumbers.included.txt")
-
-//    val folder = "v:/TB-ARC/MALI/"
-//    val gs = tLines(folder + "gnumbers.included.txt")
-
-    //    val folder = "v:/TB-ARC/ALLAND/"
-    //    val gs = tLines(folder + "feb24_30xcontam/gnumbers.included.txt")
-    //    
-    //    val folder = "v:/TB-ARC/ZHANG/"
-    //    val gs = tLines(folder + "gnumbers.included.txt")
-
+   
     val pw = new PrintWriter(config.outputPrefix + ".summary.txt")
     val pw2 = new PrintWriter(config.outputPrefix + ".perSample.txt")
     val order = List("Amb", "Amb;LowCov", "Del", "Del;Amb", "Del;Amb;LowCov", "Del;LowCov", "LowCov", "PASS")
@@ -63,22 +54,14 @@ object AggregateAmbiguous extends Main {
           sizeMap.count(line)
         }
         
-//        val lines = tLines(vcf).toList
-//        val sizeMap = lines.map(new VCFLine(_)).groupBy(_.filter).mapValues(_.size)
-        
-        
         pw2.println(number + "\t" + order.map(sizeMap.getOrElse(_, 0)).mkString("\t"))
         for(line<-tLinesIterator(vcf)){
           val l = new VCFLine(line)
           if (fmArray(l.pos) == null)
             fmArray(l.pos) = new CountMap[String]()
-          //          val ft = l.filter.split(";")
-          //          ft.map(f => {
           fmArray(0).count(l.filter)
           fmArray(l.pos).count(l.filter)
-          //          })
-          //          actualFm.count(ft)
-
+  
         }
 
         println("# progress: " + fmArray(0))
