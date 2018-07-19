@@ -11,8 +11,10 @@ import atk.util.NaturalOrderComparator
 import java.io.PrintWriter
 import abeel.genometools.Main
 
-object LSP2genes extends Main {
-
+object LSP2genes extends Main { 
+  
+  override def description = """Map variants from VCF files to genes or other coordinate based features"""
+  
   class GFFLine(val line: String) {
     lazy val arr = line.split("\t")
     //    assume(arr.length)
@@ -26,7 +28,7 @@ object LSP2genes extends Main {
   }
 
  override def main(args: Array[String]): Unit = {
-    val parser = new scopt.OptionParser[Config]("java -jar pelican.jar variant2gene") {
+    val parser = new scopt.OptionParser[Config]("java -jar genometools.jar variant2gene") {
       opt[String]('o', "output") required() action { (x, c) => c.copy(output = x) } text ("Output prefix")
       opt[File]("vcf") required() action { (x, c) => c.copy(vcfDirectory= x) } text ("Directory with all VCF files. Need to end with '.annotated.vcf'")
       opt[File]("gff") required() action { (x, c) => c.copy(gff= x) } text ("File with annotations in GFF format")
