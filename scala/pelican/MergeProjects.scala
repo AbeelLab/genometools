@@ -11,7 +11,7 @@ import atk.io.IOTools
 import abeel.genometools.Main
 
 object MergeProjects extends Main {
-
+override def description = """Merge several projects together."""
   /**
    * Input files contains descriptions of all projects.
    *
