@@ -37,8 +37,6 @@ override def description = """Merge several projects together."""
   case class Config(val output: File = null, val input: File = null, val drugSynonyms: File = null, val skipVCF: Boolean = false)
 
  override def main(args: Array[String]): Unit = {
-    //    val c = new Config(input = new File("v:/TB-ARC/meta_dev/merge.test.txt"))
-    //    merge(c)
 
     val parser = new scopt.OptionParser[Config]("java -jar pelican.jar merge-projects") {
       opt[File]('o', "output") required () action { (x, c) => c.copy(output = x) } text ("Output directory prefix (should included dated directory)")
