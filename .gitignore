@@ -1,7 +1,6 @@
 *.class
 *.log
 
-.classpath
 .cache
 
 bin/
