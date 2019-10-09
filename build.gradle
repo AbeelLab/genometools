@@ -68,13 +68,9 @@ task fatjar(type: Jar) {
         	'Implementation-Version': '1.0',
         	'Main-Class': 'abeel.genometools.GenomeToolsConsole'
     }
-    if(!hasProperty('$BUILD_NUMBER')){
-		ext{
-			$BUILD_NUMBER='develop'
-		}
-	}
+    
 	
-    baseName = project.name +'-'+$BUILD_NUMBER+ '-all'
+    baseName = project.name + -all'
 
     from { configurations.compile.collect { 
     it.isDirectory() ? it : zipTree(it).matching{exclude{it.path.contains('META-INF')}}
