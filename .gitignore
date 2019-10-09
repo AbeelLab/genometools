@@ -2,7 +2,7 @@
 *.log
 
 .cache
-
+.gradle
 bin/
 
 # sbt specific
@@ -24,3 +24,6 @@ genometools-development.zip
 /*.fasta
 /*.vcf
 /snp.matrix.*
+/.cache-tests
+/build/
+/.classpath
