@@ -17,6 +17,9 @@ repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    maven{
+     url 'http://repo1.maven.org/maven2/'
+    }
     
      flatDir {
        dirs 'lib'
@@ -48,8 +51,8 @@ dependencies {
 	compile name: 'sam-1.101'
 	compile name: 'genomeview-lib-N41'
     compile group: 'org.apache.commons', name: 'commons-math3', version: '3.2'	
-	compile group: 'jfree', name: 'jfreechart', version: '1.0.15'
-	compile group: 'jfree', name: 'jcommon', version: '1.0.18'
+	compile group: 'org.jfree', name: 'jfreechart', version: '1.0.15'
+	compile group: 'org.jfree', name: 'jcommon', version: '1.0.24'
 	// https://mvnrepository.com/artifact/org.scala-lang/scala-library
 	compile group: 'org.scala-lang', name: 'scala-library', version: '2.12.3'
 
@@ -59,12 +62,20 @@ dependencies {
 }
 
 task fatjar(type: Jar) {
+
 	manifest {
         attributes 'Implementation-Title': 'GenomeTools',  
         	'Implementation-Version': '1.0',
         	'Main-Class': 'abeel.genometools.GenomeToolsConsole'
     }
-    baseName = project.name + '-all'
+    if(!hasProperty('$BUILD_NUMBER')){
+		ext{
+			$BUILD_NUMBER='develop'
+		}
+	}
+	
+    baseName = project.name +'-'+$BUILD_NUMBER+ '-all'
+
     from { configurations.compile.collect { 
     it.isDirectory() ? it : zipTree(it).matching{exclude{it.path.contains('META-INF')}}
     } 
